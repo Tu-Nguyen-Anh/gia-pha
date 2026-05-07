@@ -1,6 +1,6 @@
 {
     "id": "root",
-    "code": "NGUYEN_HUU_KY_COI",
+    "code": "Khởi tổ: Nguyễn Bá Dự",
     "name": "Dòng Họ Nguyễn Hữu",
     "location": "Thôn Kỳ Côi",
     "gender": "male",
@@ -38,7 +38,7 @@
             "children": [
               {
                 "id": "D3",
-                "name": "Nguyễn Bá Khuê",
+                "name": "Nguyễn Bá Khang",
                 "gender": "male",
                 "note": "Đời Thứ III - Giỗ 27/12",
                 "spouses": [],

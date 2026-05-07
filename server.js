@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json({ limit: '20mb' }));
 app.use(express.static(path.join(__dirname)));
 
-const MONGO_URL  = process.env.MONGO_URL || 'mongodb://localhost:27017';
+const MONGO_URL  = process.env.MONGO_URL || 'mongodb+srv://Vercel-Admin-gia-pha:u8AuWeefvfOTJY6O@gia-pha.kjy8wby.mongodb.net/?retryWrites=true&w=majority';
 const DB_NAME    = 'giapha';
 const COL        = 'family_tree';
 
