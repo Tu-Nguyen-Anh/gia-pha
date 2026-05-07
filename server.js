@@ -29,13 +29,15 @@ function requireAuth(req, res, next) {
   next();
 }
 
-let col;
+// Cache connection giữa các serverless invocation
+let cachedCol = null;
 
-async function connectDB() {
+async function getCol() {
+  if (cachedCol) return cachedCol;
   const client = new MongoClient(MONGO_URL);
   await client.connect();
-  col = client.db(DB_NAME).collection(COL);
-  console.log('Đã kết nối MongoDB:', MONGO_URL);
+  cachedCol = client.db(DB_NAME).collection(COL);
+  return cachedCol;
 }
 
 // ── Auth endpoints ─────────────────────────────────────────────────────────
@@ -62,6 +64,7 @@ app.post('/api/logout', (req, res) => {
 // ── Tree endpoints ─────────────────────────────────────────────────────────
 app.get('/api/tree', async (req, res) => {
   try {
+    const col = await getCol();
     const doc = await col.findOne({}, { projection: { _id: 0 } });
     res.json(doc || null);
   } catch (e) {
@@ -72,6 +75,7 @@ app.get('/api/tree', async (req, res) => {
 // Chỉ admin mới được lưu
 app.put('/api/tree', requireAuth, async (req, res) => {
   try {
+    const col      = await getCol();
     const tree     = req.body;
     const existing = await col.findOne({});
     if (existing) {
@@ -85,13 +89,12 @@ app.put('/api/tree', requireAuth, async (req, res) => {
   }
 });
 
-connectDB()
-  .then(() => {
-    app.listen(3000, () =>
-      console.log('Server đang chạy tại http://localhost:3000')
-    );
-  })
-  .catch(err => {
-    console.error('Lỗi kết nối MongoDB:', err.message);
-    process.exit(1);
-  });
+// ── Local dev: chạy trực tiếp bằng node server.js ──────────────────────────
+if (require.main === module) {
+  app.listen(3000, () =>
+    console.log('Server đang chạy tại http://localhost:3000')
+  );
+}
+
+// ── Vercel: export app làm serverless handler ───────────────────────────────
+module.exports = app;
