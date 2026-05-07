@@ -1,0 +1,1100 @@
+{
+    "id": "root",
+    "code": "NGUYEN_HUU_KY_COI",
+    "name": "Dòng Họ Nguyễn Hữu",
+    "location": "Thôn Kỳ Côi",
+    "gender": "male",
+    "note": "Khởi Tổ: Nguyễn Bá Dự (Giỗ 27/12), Bà Tổ: Nguyễn Thị Dung (10/12)",
+    "spouses": [
+      {
+        "name": "Nguyễn Thị Dung",
+        "note": "Bà Tổ - Giỗ 10/12"
+      }
+    ],
+    "children": [
+      {
+        "id": "D1",
+        "name": "Nguyễn Bá Khuê",
+        "gender": "male",
+        "note": "Đời Thứ I - Giỗ 27/12",
+        "spouses": [
+          {
+            "name": "Nguyễn Thị Oanh",
+            "note": "Giỗ 25/10"
+          }
+        ],
+        "children": [
+          {
+            "id": "D2",
+            "name": "Nguyễn Bá Đặng",
+            "gender": "male",
+            "note": "Đời Thứ II - Giỗ 15/07",
+            "spouses": [
+              {
+                "name": "Nguyễn Thị Đặng",
+                "note": "Giỗ 15/07"
+              }
+            ],
+            "children": [
+              {
+                "id": "D3",
+                "name": "Nguyễn Bá Khuê",
+                "gender": "male",
+                "note": "Đời Thứ III - Giỗ 27/12",
+                "spouses": [],
+                "children": [
+                  {
+                    "id": "D4_1",
+                    "name": "Nguyễn Bá Lịch",
+                    "gender": "male",
+                    "note": "Đời Thứ IV - Tổ Ngành I - Giỗ 27/06",
+                    "spouses": [
+                      {
+                        "name": "Nguyễn Thị Mọn",
+                        "note": "Giỗ 28/10"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "id": "N1_S1",
+                        "name": "Nguyễn Bá Trong",
+                        "gender": "male",
+                        "note": "Giỗ 27/10",
+                        "children": []
+                      },
+                      {
+                        "id": "N1_S2",
+                        "name": "Nguyễn Thị Đần",
+                        "gender": "female",
+                        "note": "Giỗ 15/07",
+                        "children": []
+                      },
+                      {
+                        "id": "N1_S3",
+                        "name": "Nguyễn Bá Khang",
+                        "gender": "male",
+                        "note": "Giỗ 21/09",
+                        "children": []
+                      },
+                      {
+                        "id": "N1_S4",
+                        "name": "Nguyễn Bá Ấm",
+                        "gender": "male",
+                        "children": []
+                      },
+                      {
+                        "id": "N1C1",
+                        "code": "N1C1",
+                        "name": "Chi 1 – Ngành I",
+                        "gender": "male",
+                        "note": "Chưa có dữ liệu",
+                        "children": []
+                      },
+                      {
+                        "id": "N1C2",
+                        "code": "ĐT5/N1C2",
+                        "name": "Nguyễn Bá Ấp",
+                        "gender": "male",
+                        "note": "Chi 2 – Ngành I - Giỗ 29/05",
+                        "spouses": [
+                          {
+                            "name": "Nguyễn Thị Gợn",
+                            "note": "Vô tự"
+                          },
+                          {
+                            "name": "Nguyễn Thị Ty",
+                            "origin": "Kỳ Côi",
+                            "note": "Sinh được 4 người con"
+                          }
+                        ],
+                        "children": [
+                          {
+                            "id": "DT6_N1C2_1",
+                            "code": "ĐT6/N1/C2/1",
+                            "name": "Nguyễn Thị Tốn",
+                            "gender": "female",
+                            "spouses": [
+                              {
+                                "name": "Vũ Bá Đan",
+                                "origin": "Kỳ Côi",
+                                "note": "Có 9 người con"
+                              }
+                            ],
+                            "children": [
+                              { "name": "Vũ Thị Họp", "gender": "female" },
+                              { "name": "Vũ Văn Thân", "gender": "male" },
+                              { "name": "Vũ Văn Biếc", "gender": "male" },
+                              { "name": "Vũ Văn Hưỡng", "gender": "male" },
+                              { "name": "Vũ Văn Huyền", "gender": "male" },
+                              { "name": "Vũ Thị tiêc", "gender": "female" },
+                              { "name": "Vũ Thị Nhờn", "gender": "female" },
+                              { "name": "Vũ Thị Khổn", "gender": "female" },
+                              { "name": "Vũ Thị Thiểm", "gender": "female" }
+                            ]
+                          },
+                          {
+                            "id": "DT6_N1C2_2",
+                            "code": "Đ6/N1/C2/2",
+                            "name": "Nguyễn Thị Khôn",
+                            "gender": "female",
+                            "spouses": [
+                              {
+                                "name": "Nguyễn Văn Kiệu",
+                                "origin": "Kỳ Côi"
+                              }
+                            ],
+                            "children": [
+                              { "name": "Nguyễn văn Rước", "gender": "male" },
+                              { "name": "Nguyễn Thị Đám", "gender": "female" },
+                              { "name": "Nguyễn Thị Chui", "gender": "female" }
+                            ]
+                          },
+                          {
+                            "id": "DT6_N1C2_3",
+                            "code": "Đ6/N1/C2/3",
+                            "name": "Nguyễn Văn Đoái",
+                            "gender": "male",
+                            "spouses": [
+                              {
+                                "name": "Trần thị Điệu",
+                                "origin": "Kỳ Côi",
+                                "note": "Sinh được 9 người con"
+                              }
+                            ],
+                            "children": [
+                              {
+                                "id": "DT7_N1C2_3_1",
+                                "name": "Nguyễn Thị In",
+                                "gender": "female",
+                                "spouses": [{ "name": "Nguyễn Văn Đền", "origin": "Kiến Thụy" }],
+                                "children": [
+                                  { "name": "Nguyễn Thị Đàm", "gender": "female" },
+                                  { "name": "Nguyễn Thị Đảm", "gender": "female" },
+                                  { "name": "Nguyễn Văn Bảo", "gender": "male" },
+                                  { "name": "Nguyễn Văn Toàn", "gender": "male" },
+                                  { "name": "Nguyễn Văn Toản", "gender": "male" },
+                                  { "name": "Nguyễn Văn Bản", "gender": "male" }
+                                ]
+                              },
+                              {
+                                "id": "DT7_N1C2_3_2",
+                                "name": "Nguyễn Văn Thạo",
+                                "gender": "male",
+                                "spouses": [{ "name": "Nguyễn Thị Hợi" }],
+                                "children": [
+                                  {
+                                    "name": "Nguyễn thị thúy",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Trương Văn Hoàng", "origin": "Quảng Trị" }],
+                                    "children": [
+                                      { "name": "Trương Thị Tâm", "gender": "female" },
+                                      { "name": "Trương Văn Hùng", "gender": "male" },
+                                      { "name": "Trương Văn Hoàn", "gender": "male" },
+                                      { "name": "Trương Thị Trang", "gender": "female" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Lý",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Trương Văn Quyền" }],
+                                    "children": [
+                                      { "name": "Trương Văn Quản", "gender": "male" },
+                                      { "name": "Trương thị Loan", "gender": "female" },
+                                      { "name": "Trương Thị Hương", "gender": "female" },
+                                      { "name": "Trương Văn Khương", "gender": "male" },
+                                      { "name": "Trương thị Hằng", "gender": "female" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Láng",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Nguyễn Đăng Mộc", "origin": "Đồng gia" }],
+                                    "children": [{ "name": "Nguyễn Đăng Trung", "gender": "male" }]
+                                  },
+                                  {
+                                    "name": "Nguyễn Văn Khởi",
+                                    "gender": "male",
+                                    "spouses": [{ "name": "Phạm Thị Bồn", "origin": "Phú Dưỡng" }],
+                                    "children": [
+                                      {
+                                        "name": "Nguyễn Kim Cương",
+                                        "gender": "male",
+                                        "spouses": [{ "name": "Nguyễn Thị Hậu", "origin": "Cổ Dũng" }],
+                                        "children": [
+                                          { "name": "Nguyễn Hồng Phúc", "gender": "male" },
+                                          { "name": "Nguyễn Ngọc Diệp", "gender": "female" }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Nguyễn Thị Chiên",
+                                        "gender": "female",
+                                        "spouses": [{ "name": "Nguyễn Văn Hoan", "origin": "Đại đức" }]
+                                      },
+                                      {
+                                        "name": "Nguyễn Thị Chinh",
+                                        "gender": "female",
+                                        "spouses": [{ "name": "Nguyễn Văn Lương", "origin": "Đình Ngọ" }]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Hữu Nhu",
+                                    "gender": "male",
+                                    "spouses": [{ "name": "Nguyễn Thị Hậu", "origin": "Bình Dân" }],
+                                    "children": [
+                                      { "name": "Nguyễn Thành Điệp", "gender": "male" },
+                                      { "name": "Nguyễn Thành Đô", "gender": "male" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Nhàn",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Nguyễn Đăng Cảnh", "origin": "Đồng gia" }],
+                                    "children": [
+                                      { "name": "Nguyễn Văn Tổng", "gender": "male" },
+                                      { "name": "Nguyễn Thị Phương", "gender": "female" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Hữu Đại",
+                                    "gender": "male",
+                                    "spouses": [{ "name": "Đồng Thị Huyền", "origin": "Liên Hòa" }],
+                                    "children": [
+                                      { "name": "Nguyễn Văn Khải", "gender": "male" },
+                                      {
+                                        "name": "Nguyễn Thị Lan",
+                                        "gender": "female",
+                                        "spouses": [{ "name": "Nguyễn Văn Dương", "origin": "Đồng Thái" }]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Hữu Tài",
+                                    "gender": "male",
+                                    "spouses": [{ "name": "Nguyễn Thị Vinh", "origin": "Đồng gia" }],
+                                    "children": [
+                                      {
+                                        "name": "Nguyễn Thị Hà",
+                                        "gender": "female",
+                                        "spouses": [{ "name": "Nguyễn văn Cường", "origin": "Kinh Môn" }],
+                                        "children": [{ "name": "Nguyễn Thắng Minh Anh", "gender": "female" }]
+                                      },
+                                      {
+                                        "name": "Nguyễn Thị Hiên",
+                                        "gender": "female",
+                                        "spouses": [{ "name": "Phạm Văn Đức", "origin": "Thanh Hà" }],
+                                        "children": [{ "name": "Phạm Ngọc Khánh An", "gender": "female" }]
+                                      },
+                                      { "name": "Nguyễn Phú Trọng", "gender": "male" }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "id": "DT7_N1C2_3_3",
+                                "name": "Nguyễn Văn Láu",
+                                "gender": "male",
+                                "spouses": [{ "name": "Nghiêm Thị Bám", "origin": "Lại Đông" }],
+                                "children": [
+                                  {
+                                    "name": "Nguyễn Văn Làu (Thiết)",
+                                    "gender": "male",
+                                    "spouses": [
+                                      { "name": "Nguyễn Thị Nga", "origin": "Kim Xuyên" },
+                                      { "name": "Nguyễn thị Lý", "origin": "Kim Đính" }
+                                    ],
+                                    "children": [
+                                      { "name": "Nguyễn Thị Hải Phương", "gender": "female" },
+                                      { "name": "Nguyễn Thị Phương Hà", "gender": "female" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Văn Là",
+                                    "gender": "male",
+                                    "spouses": [{ "name": "Nguyễn Thị Ngoan", "origin": "Gia Lộc" }],
+                                    "children": [
+                                      {
+                                        "name": "Nguyễn thị Nhung",
+                                        "gender": "female",
+                                        "spouses": [{ "name": "Nguyễn Đăng Trình", "origin": "Ninh Giang" }]
+                                      },
+                                      {
+                                        "name": "Nguyễn Khắc Tiệp",
+                                        "gender": "male",
+                                        "spouses": [{ "name": "Nguyễn thu Phương", "origin": "Bắc Ninh" }]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Lâm",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Nguyễn Văn Mí", "origin": "Hà Nhuận" }],
+                                    "note": "Sinh 4 gái 1 trai",
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Nguyễn Văn Lượt",
+                                    "gender": "male",
+                                    "spouses": [{ "name": "Bùi Thị Na", "origin": "Nại Đông" }],
+                                    "children": [
+                                      {
+                                        "name": "Nguyễn Văn Hùng",
+                                        "gender": "male",
+                                        "spouses": [{ "name": "Nguyễn thị Hường", "origin": "Đồng Gia" }]
+                                      },
+                                      {
+                                        "name": "Nguyễn Thị Dương",
+                                        "gender": "female",
+                                        "spouses": [{ "name": "Lưu Văn Sơn", "origin": "Nại Đông" }]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn thị Bút",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Nguyễn Đăng Phương", "origin": "Đồng Gia" }],
+                                    "children": [
+                                      { "name": "Nguyễn Văn Thành", "gender": "male" },
+                                      { "name": "Nguyễn Văn Đạt", "gender": "male" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Văn Lục",
+                                    "gender": "male",
+                                    "yearBorn": 1975,
+                                    "spouses": [{ "name": "Hoàng Thị Dung (Đông)", "origin": "Kinh Môn" }],
+                                    "children": [
+                                      { "name": "Nguyễn Thị Ngọc Anh", "gender": "female" },
+                                      { "name": "Nguyễn Thị Minh Thư", "gender": "female" },
+                                      { "name": "Nguyễn Đăng Khoa", "gender": "male" },
+                                      { "name": "Nguyễn Minh Khôi", "gender": "male" }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "id": "DT7_N1C2_3_4",
+                                "name": "Nguyễn Thị Năm",
+                                "gender": "female",
+                                "spouses": [{ "name": "Giang Văn Tường", "origin": "Thái Bình" }],
+                                "children": [
+                                  { "name": "Giang Văn Sơn", "gender": "male" },
+                                  { "name": "Giang Thị Phương", "gender": "female" },
+                                  { "name": "Giang Văn Lê", "gender": "male" }
+                                ]
+                              },
+                              { "name": "Nguyễn Văn Tiếng", "gender": "male", "note": "Vô tự" },
+                              { "name": "Nguyễn Văn Đó", "gender": "male", "note": "Vô tự" },
+                              { "name": "Nguyễn Văn Đọ", "gender": "male", "note": "Vô tự" },
+                              { "name": "Nguyễn Thị Tốn", "gender": "female", "note": "Vô tự" },
+                              { "name": "Nguyễn Thị Tin", "gender": "female", "note": "Vô tự" }
+                            ]
+                          },
+                          { "name": "Nguyễn thị Ngảnh", "gender": "female", "note": "Vô tự" }
+                        ]
+                      },
+                      {
+                        "id": "N1C3",
+                        "code": "ĐT5/N1C3",
+                        "name": "Nguyễn Bá Tranh",
+                        "gender": "male",
+                        "note": "Chi 3 – Ngành I - Giỗ 27/03",
+                        "spouses": [{ "name": "Nguyễn Thị Trê", "note": "Giỗ 21/04" }],
+                        "children": [
+                          {
+                            "id": "DT6_N1C3_1",
+                            "name": "Nguyễn Văn Pháo",
+                            "gender": "male",
+                            "spouses": [{ "name": "Nguyễn Thị Vuốt" }],
+                            "children": [
+                              {
+                                "id": "DT7_N1C3_1_1",
+                                "name": "Nguyễn Văn Xe",
+                                "gender": "male",
+                                "spouses": [{ "name": "Vũ Thị Gái" }],
+                                "children": [
+                                  {
+                                    "id": "DT8_N1C3_1_1_1",
+                                    "name": "Nguyễn Văn Sỏi",
+                                    "gender": "male",
+                                    "yearBorn": 1934,
+                                    "year_died": 2021,
+                                    "spouses": [{ "name": "Nguyễn Thị Múp", "yearBorn": 1940, "year_died": 2025 }],
+                                    "children": [
+                                      {
+                                        "name": "Nguyễn Văn Lợi",
+                                        "gender": "male",
+                                        "yearBorn": 1959,
+                                        "spouses": [{ "name": "Nguyễn Thị Vân", "origin": "Đồng Gia" }],
+                                        "children": [
+                                          {
+                                            "name": "Nguyễn Thị Phương",
+                                            "gender": "female",
+                                            "spouses": [{ "name": "Nguyễn Văn Lạc", "origin": "Bình Dân" }],
+                                            "children": [
+                                              { "name": "Nguyễn Văn long", "gender": "male" },
+                                              { "name": "Nguyễn Thị Ánh", "gender": "female" }
+                                            ]
+                                          },
+                                          {
+                                            "name": "Nguyễn Thị Dung",
+                                            "gender": "female",
+                                            "spouses": [{ "name": "Trần Văn Thanh", "origin": "Tràng Duệ" }],
+                                            "children": [
+                                              { "name": "Trần Văn Dương", "gender": "male" },
+                                              { "name": "Trần Văn Phong", "gender": "male" }
+                                            ]
+                                          },
+                                          {
+                                            "name": "Nguyễn Văn Chung",
+                                            "gender": "male",
+                                            "spouses": [
+                                              { "name": "Nguyễn Thị Nhung", "origin": "Sao Đỏ", "note": "Vợ cả" },
+                                              { "name": "Nguyễn Thị Thanh", "origin": "Bình Dân", "note": "Vợ 2" }
+                                            ],
+                                            "children": [
+                                              { "name": "Nguyễn Gia Huy", "gender": "male", "note": "Con vợ cả" },
+                                              { "name": "Nguyễn Việt Hoàng", "gender": "male", "note": "Con vợ 2" }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Nguyễn Thị Năng",
+                                        "gender": "female",
+                                        "yearBorn": 1964,
+                                        "spouses": [{ "name": "Ngô Văn Hải", "origin": "Hà Nhuận" }],
+                                        "children": [
+                                          { "name": "Ngô Thị Phương", "gender": "female", "note": "Đã mất" },
+                                          { "name": "Ngô Thị Duyên", "gender": "female" },
+                                          { "name": "Ngô Văn Quân", "gender": "male" },
+                                          { "name": "Ngô Thị Hiền", "gender": "female" }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Nguyễn Thị Nhiệm",
+                                        "gender": "female",
+                                        "yearBorn": 1967,
+                                        "spouses": [{ "name": "Nguyễn Văn Hiếu", "origin": "Đồng gia" }],
+                                        "children": [
+                                          { "name": "Nguyễn Văn Thành", "gender": "male" },
+                                          { "name": "Nguyễn Văn Công", "gender": "male" }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Nguyễn Thị Nhạn",
+                                        "gender": "female",
+                                        "yearBorn": 1970,
+                                        "spouses": [{ "name": "Nguyễn Văn Thăng", "origin": "Đại Đức" }],
+                                        "children": [
+                                          { "name": "Nguyễn Thị Yến", "gender": "female" },
+                                          { "name": "Nguyễn Văn Cường", "gender": "male" }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Nguyễn Văn Vĩnh",
+                                        "gender": "male",
+                                        "yearBorn": 1973,
+                                        "spouses": [{ "name": "Nguyễn Thị Ngân", "origin": "Liên Hòa" }],
+                                        "children": [
+                                          {
+                                            "name": "Nguyễn Văn Sơn",
+                                            "gender": "male",
+                                            "spouses": [{ "name": "Nguyễn Thị Ánh", "origin": "Bình Dân" }],
+                                            "children": [{ "name": "Nguyễn Thái Bảo", "gender": "male" }]
+                                          },
+                                          { "name": "Nguyễn Văn Đông", "gender": "male" }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Nhì",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Nguyễn Văn Thanh", "origin": "Lại Đông" }],
+                                    "children": [
+                                      { "name": "Nguyễn Văn Vinh", "gender": "male" },
+                                      { "name": "Nguyễn Thị Hằng", "gender": "female" },
+                                      { "name": "Nguyễn Văn Vịnh", "gender": "male" },
+                                      { "name": "Nguyễn Thị Bích", "gender": "female" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Nhị",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Trương Văn Sửu", "origin": "Làng đắc" }],
+                                    "children": [
+                                      { "name": "Trương văn hiền", "gender": "male" },
+                                      { "name": "Trương Văn Học", "gender": "male" },
+                                      { "name": "Trương Thị Đào", "gender": "female" },
+                                      { "name": "Trương Văn Cao", "gender": "male" },
+                                      { "name": "Trương Văn Trào", "gender": "male" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Nụ",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Nguyễn Văn Thái" }],
+                                    "children": [
+                                      { "name": "Nguyễn Thị Lan", "gender": "female" },
+                                      { "name": "Nguyễn Văn Dũng", "gender": "male" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Lai",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Nguyễn Văn Túy" }],
+                                    "children": [
+                                      { "name": "Nguyễn Thị Luân", "gender": "female" },
+                                      { "name": "Nguyễn Văn Tam", "gender": "male" }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "id": "DT7_N1C3_1_2",
+                                "name": "Nguyễn Thị Găng",
+                                "gender": "female",
+                                "spouses": [{ "name": "Trần Văn Viện", "origin": "Kỳ Côi" }],
+                                "children": [
+                                  { "name": "Trần Văn Hưu", "gender": "male" },
+                                  { "name": "Trần Văn Vang", "gender": "male" },
+                                  { "name": "Trần Văn Liễu", "gender": "male" }
+                                ]
+                              },
+                              {
+                                "id": "DT7_N1C3_1_3",
+                                "name": "Nguyễn Thị Xẻ",
+                                "gender": "female",
+                                "spouses": [{ "name": "Nguyễn Văn Dói", "origin": "Đồng gia" }],
+                                "children": [
+                                  { "name": "Nguyễn Văn Luyết", "gender": "male" },
+                                  { "name": "Nguyễn Văn Bảo", "gender": "male" }
+                                ]
+                              },
+                              {
+                                "id": "DT7_N1C3_1_4",
+                                "name": "Nguyễn Thị Phà",
+                                "gender": "female",
+                                "spouses": [{ "name": "Nguyễn Văn Oa" }],
+                                "children": [{ "name": "Nguyễn Văn Chiến", "gender": "male" }]
+                              }
+                            ]
+                          },
+                          {
+                            "id": "DT6_N1C3_2",
+                            "name": "Nguyễn Văn Huấn",
+                            "gender": "male",
+                            "spouses": [{ "name": "Trần Thị Sung" }],
+                            "children": [
+                              { "name": "Nguyễn Văn Phao", "gender": "male" },
+                              { "name": "Nguyễn Thị Nhớn (Thược)", "gender": "female" },
+                              { "name": "Nguyễn Thị Xuân", "gender": "female" },
+                              { "name": "Nguyễn Văn Thu", "gender": "male" },
+                              {
+                                "id": "DT7_N1C3_2_5",
+                                "name": "Nguyễn Văn Đướng",
+                                "gender": "male",
+                                "spouses": [{ "name": "Nguyễn Thị Phạn" }],
+                                "children": [
+                                  {
+                                    "name": "Nguyễn Văn Đượm",
+                                    "gender": "male",
+                                    "spouses": [{ "name": "Bùi Thị Ngoạt", "origin": "Cẩm La" }],
+                                    "children": [
+                                      {
+                                        "name": "Nguyễn Thị Thắm",
+                                        "gender": "female",
+                                        "spouses": [{ "name": "Nguyễn Văn Hợp", "origin": "Kim Khê" }],
+                                        "children": [
+                                          { "name": "Nguyễn Văn Sơn", "gender": "male" },
+                                          { "name": "Nguyễn Văn Thái", "gender": "male" }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Nguyễn Thị Thụ",
+                                        "gender": "female",
+                                        "spouses": [{ "name": "Phan Văn Khoa", "origin": "Bình dân" }],
+                                        "children": [
+                                          { "name": "Phan Trung Kiên", "gender": "male" },
+                                          { "name": "Phan Thị Đan Phượng", "gender": "female" }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Nguyễn Văn Thiệp",
+                                        "gender": "male",
+                                        "spouses": [{ "name": "Lý Thị Nghiêm", "origin": "Kỳ Côi" }],
+                                        "children": [
+                                          { "name": "Nguyễn Khánh Ngân", "gender": "female" },
+                                          { "name": "Nguyễn Khánh Chi", "gender": "female" }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Nguyễn Thị Thuấn",
+                                        "gender": "female",
+                                        "spouses": [{ "name": "Nguyễn Văn Tam", "origin": "Đại đức" }],
+                                        "children": [
+                                          { "name": "Nguyễn Ngọc Anh", "gender": "female" },
+                                          { "name": "Nguyễn Anh Thư", "gender": "female" },
+                                          { "name": "Nguyễn Nhật Vy", "gender": "female" },
+                                          { "name": "Nguyễn Minh Quang", "gender": "male" }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Hải Đường",
+                                    "gender": "male",
+                                    "spouses": [{ "name": "Nguyễn Thị Kim Thế" }],
+                                    "children": [
+                                      {
+                                        "name": "Nguyễn Văn Dương",
+                                        "gender": "male",
+                                        "yearBorn": 1971,
+                                        "spouses": [{ "name": "Lê Thị Hằng" }],
+                                        "children": [
+                                          { "name": "Nguyễn Phương Anh", "gender": "female" },
+                                          { "name": "Nguyễn Văn Quân", "gender": "male" }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Nguyễn Thị Hương",
+                                        "gender": "female",
+                                        "yearBorn": 1974,
+                                        "spouses": [{ "name": "Phạm Văn Minh" }],
+                                        "children": [
+                                          { "name": "Phạm Văn Mạnh", "gender": "male" },
+                                          { "name": "Phạm Thị Hà", "gender": "female" }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Nguyễn Mạnh Cường",
+                                        "gender": "male",
+                                        "yearBorn": 1983,
+                                        "spouses": [{ "name": "Nguyễn Thị Trang", "yearBorn": 1987 }],
+                                        "children": [
+                                          { "name": "Nguyễn Ngọc Nhã Uyên", "gender": "female", "yearBorn": 2013 },
+                                          { "name": "Nguyễn Việt Bách", "gender": "male", "yearBorn": 2018 }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Định",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Vũ Văn Gội", "origin": "Làng Gôi" }],
+                                    "children": [
+                                      { "name": "Vũ Văn Toản", "gender": "male" },
+                                      { "name": "Vũ văn Hùng", "gender": "male" },
+                                      { "name": "Vũ Thị Hảo", "gender": "female" },
+                                      { "name": "Vũ Thị Nguyên", "gender": "female" },
+                                      { "name": "Vũ Thị Hồng", "gender": "female", "note": "Đã mất" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Liệu",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Nguyễn Văn Châu", "origin": "Hà Nhuận" }],
+                                    "children": [
+                                      { "name": "Nguyễn Thị Thoa", "gender": "female" },
+                                      { "name": "Nguyễn Văn Minh", "gender": "male" },
+                                      { "name": "Nguyễn Thị Mai", "gender": "female" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Hạnh",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Trần Văn Thể", "origin": "Kim Anh" }],
+                                    "children": [
+                                      { "name": "Trần Thu Hà", "gender": "female" },
+                                      { "name": "Trẫn Văn Thao", "gender": "male" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Văn Phúc",
+                                    "gender": "male",
+                                    "spouses": [{ "name": "Đồng Thị Hạnh", "origin": "Kim Đính" }],
+                                    "children": [
+                                      {
+                                        "name": "Nguyễn Thị Thảo",
+                                        "gender": "female",
+                                        "spouses": [{ "name": "Nguyễn Văn Tư", "origin": "Đại đức" }],
+                                        "children": [
+                                          { "name": "Nguyễn Thị Phượng", "gender": "female" },
+                                          { "name": "Nguyễn Thị Chi", "gender": "female" }
+                                        ]
+                                      },
+                                      { "name": "Nguyễn Thị Hiên", "gender": "female", "note": "Đã mất" },
+                                      {
+                                        "name": "Nguyễn thị Hòa",
+                                        "gender": "female",
+                                        "spouses": [{ "name": "Trần Văn Long", "origin": "Kim Tân" }],
+                                        "children": [
+                                          { "name": "Trần Văn Hưng", "gender": "male" },
+                                          { "name": "Trần Gia Huy", "gender": "male" }
+                                        ]
+                                      },
+                                      { "name": "Nguyễn Thành Đạt", "gender": "male" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Khiếu",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Văn Tâm", "origin": "Bình dân" }],
+                                    "children": [
+                                      { "name": "Nhung", "gender": "female" },
+                                      { "name": "Trang", "gender": "female" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Mười",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Đỗ Văn Huyền" }],
+                                    "children": [
+                                      { "name": "Đõ Thị Ngọc", "gender": "female" },
+                                      { "name": "Đỗ Thu Phương", "gender": "female" }
+                                    ]
+                                  }
+                                ]
+                              },
+                              { "name": "Nguyễn Thị Ca", "gender": "female", "spouses": [{ "origin": "Làng Gôi" }] },
+                              {
+                                "id": "DT7_N1C3_2_7",
+                                "name": "Nguyễn Văn Bường",
+                                "gender": "male",
+                                "spouses": [{ "name": "Nguyễn Thị Chậm" }],
+                                "children": [
+                                  {
+                                    "name": "Nguyễn Thị Bượng",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Trần Văn Đỗ", "origin": "Vĩnh Phúc" }],
+                                    "children": [
+                                      { "name": "TRần Văn Thư", "gender": "male", "yearBorn": 1966 },
+                                      { "name": "Trần Văn Cường", "gender": "male", "yearBorn": 1968 },
+                                      { "name": "Trần Thị Phú", "gender": "female", "yearBorn": 1972 }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Văn Vượng",
+                                    "gender": "male",
+                                    "yearBorn": 1947,
+                                    "spouses": [{ "name": "Nguyễn Thị Thoan", "yearBorn": 1953 }],
+                                    "children": [
+                                      { "name": "Nguyễn Duy Mỹ", "gender": "male", "yearBorn": 1978 },
+                                      { "name": "Nguyễn Thị Nga", "gender": "female", "yearBorn": 1980 }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Vướng",
+                                    "gender": "female",
+                                    "yearBorn": 1950,
+                                    "spouses": [{ "name": "Trần Văn Năng" }],
+                                    "children": [
+                                      { "name": "Trần Văn Vĩnh", "gender": "male" },
+                                      { "name": "Trần Văn Hưng", "gender": "male" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Tân",
+                                    "gender": "female",
+                                    "yearBorn": 1957,
+                                    "spouses": [{ "name": "Nguyễn Văn Tập", "yearBorn": 1959 }],
+                                    "children": [
+                                      { "name": "Nguyễn Văn Tiến", "gender": "male" },
+                                      { "name": "Nguyễn Thị Hương", "gender": "female" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Lâm",
+                                    "gender": "female",
+                                    "yearBorn": 1959,
+                                    "spouses": [{ "name": "Trương Văn Hồng" }],
+                                    "children": [
+                                      { "name": "Trương Văn Hà", "gender": "male" },
+                                      { "name": "Trương Văn Lộc", "gender": "male" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Lý",
+                                    "gender": "female",
+                                    "yearBorn": 1965,
+                                    "spouses": [{ "name": "Trần Văn Quảng" }],
+                                    "children": [
+                                      { "name": "TRần Thị Anh", "gender": "female" },
+                                      { "name": "Trần Văn Tuấn", "gender": "male" }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "id": "DT7_N1C3_2_8",
+                                "name": "Nguyễn Thị Trù",
+                                "gender": "female",
+                                "spouses": [{ "name": "Nguyễn Văn Đăng", "origin": "Mạnh Hà" }],
+                                "children": [
+                                  { "name": "Nguyễn Thị Tĩnh", "gender": "female", "note": "Đã mất" },
+                                  { "name": "Nguyễn Văn Tấn", "gender": "male", "note": "Đã mất" },
+                                  { "name": "Nguyễn Văn Túc", "gender": "male" },
+                                  { "name": "Nguyễn Thị Miền", "gender": "female", "yearBorn": 1964, "note": "Đã mất" },
+                                  { "name": "Nguyễn Văn Nam", "gender": "male", "yearBorn": 1967 },
+                                  { "name": "nguyễn văn Bắc", "gender": "male", "yearBorn": 1970 },
+                                  { "name": "Nguyễn văn Giang", "gender": "male", "yearBorn": 1975 }
+                                ]
+                              },
+                              {
+                                "id": "DT7_N1C3_2_9",
+                                "name": "Nguyễn Văn Trường",
+                                "gender": "male",
+                                "spouses": [{ "name": "Nguyễn Thị Dung", "origin": "Bắc Ninh" }],
+                                "children": [
+                                  {
+                                    "name": "Nguyễn thị Kim Chi",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Nguyễn Hồng Sơn" }],
+                                    "children": [
+                                      { "name": "Nguyễn Thu Thủy", "gender": "female" },
+                                      { "name": "Nguyễn Anh Tuấn", "gender": "male" }
+                                    ]
+                                  },
+                                  { "name": "Nguyễn Cao Sơn", "gender": "male", "note": "Vô tự" },
+                                  { "name": "Nguyễn Văn Minh", "gender": "male" },
+                                  {
+                                    "name": "Nguyễn Cao Ngọc",
+                                    "gender": "male",
+                                    "spouses": [{ "name": "nguyễn Thị Loan" }],
+                                    "children": [
+                                      { "name": "Nguyễn Cao Duy", "gender": "male" },
+                                      { "name": "Nguyễn Duy Tân", "gender": "male" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Ngọc Lan",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Bùi Quang Thạch" }],
+                                    "children": [
+                                      { "name": "Bùi Thị Trang", "gender": "female" },
+                                      { "name": "Bùi Đăng Tiến", "gender": "male" }
+                                    ]
+                                  }
+                                ]
+                              },
+                              { "name": "Nguyễn Văn Vường", "gender": "male", "note": "Vô tự" },
+                              {
+                                "id": "DT7_N1C3_2_11",
+                                "name": "Nguyễn Hữu Đạo",
+                                "gender": "male",
+                                "yearBorn": 1938,
+                                "spouses": [{ "name": "Nguyễn Thị Phấn", "yearBorn": 1937, "origin": "Mạnh Hà 1" }],
+                                "children": [
+                                  {
+                                    "name": "Nguyễn thị Hồng",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Nguyễn Đức Quản", "origin": "Hà Nhuận", "note": "Đã mất" }],
+                                    "children": [
+                                      { "name": "Nguyễn Văn Thuấn", "gender": "male" },
+                                      { "name": "Nguyễn Đức Khải", "gender": "male" },
+                                      { "name": "Nguyễn Văn Khiêm", "gender": "male" },
+                                      { "name": "Nguyễn Văn Luân", "gender": "male", "note": "Đã mất" },
+                                      { "name": "Nguyễn Thị Hương", "gender": "female" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Văn Xuyên",
+                                    "gender": "male",
+                                    "yearBorn": 1959,
+                                    "spouses": [{ "name": "Trần Thị An", "yearBorn": 1971, "origin": "Đồng Gia" }],
+                                    "children": [
+                                      {
+                                        "name": "Nguyễn Thị Thùy Linh",
+                                        "gender": "female",
+                                        "spouses": [{ "name": "Nguyễn Đình Đức" }],
+                                        "children": [{ "name": "Nguyễn Thị Trúc Anh", "gender": "female" }]
+                                      },
+                                      {
+                                        "name": "Nguyễn Thị Phương Anh",
+                                        "gender": "female",
+                                        "spouses": [{ "name": "Trần Quốc Nam" }],
+                                        "children": [{ "name": "Trần Thị Kim Ngân", "gender": "female" }]
+                                      },
+                                      { "name": "Nguyễn Ngọc Trâm", "gender": "female" },
+                                      { "name": "Nguyễn Quang Huy", "gender": "male" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Mai",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Lê Minh Nghệ" }],
+                                    "children": [
+                                      { "name": "Lê Minh Hưng", "gender": "male" },
+                                      { "name": "Lê Hải Yến", "gender": "female" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Tuyết",
+                                    "gender": "female",
+                                    "spouses": [{ "name": "Phạm Khắc Đạt", "origin": "Cẩm La", "note": "Đã mất" }],
+                                    "children": [
+                                      { "name": "Phạm Thị Trang", "gender": "female" },
+                                      { "name": "Phạm Khắc Long", "gender": "male" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Văn Tuyển",
+                                    "gender": "male",
+                                    "yearBorn": 1973,
+                                    "spouses": [{ "name": "Vũ Thị Hương" }],
+                                    "children": [
+                                      { "name": "Nguyễn Linh Chi", "gender": "female" },
+                                      { "name": "Nguyễn Hà Vi", "gender": "female" },
+                                      { "name": "Nguyễn Nam Phong", "gender": "male" }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          { "name": "Nguyễn Thị Gái", "gender": "female", "note": "Lấy chồng ..." },
+                          {
+                            "id": "DT6_N1C3_4",
+                            "name": "Nguyễn Bá Trại",
+                            "gender": "male",
+                            "spouses": [{ "name": "Bùi thị Cầu" }],
+                            "children": [
+                              { "name": "Nguyễn Văn Xóm", "gender": "male" },
+                              { "name": "Nguyễn Văn Đới", "gender": "male" },
+                              { "name": "Nguyễn văn Đai", "gender": "male" },
+                              { "name": "Nguyễn Thị Tý", "gender": "female" },
+                              { "name": "Nguyễn Thị Nhỡ", "gender": "female" },
+                              { "name": "Nguyễn Thị Bé", "gender": "female" }
+                            ]
+                          },
+                          {
+                            "id": "DT6_N1C3_5",
+                            "name": "Nguyễn Bá Quán",
+                            "gender": "male",
+                            "spouses": [{ "name": "Trần Thị Tường" }],
+                            "children": [
+                              { "name": "Nguyễn Thị lấn", "gender": "female" },
+                              { "name": "Nguyễn Thị Lãng", "gender": "female" },
+                              { "name": "Nguyễn thị Lân", "gender": "female" },
+                              { "name": "Nguyễn thị Giống", "gender": "female" },
+                              { "name": "Nguyến Văn Chới", "gender": "male" }
+                            ]
+                          },
+                          {
+                            "id": "DT6_N1C3_6",
+                            "name": "Nguyễn Bá Quỳnh",
+                            "gender": "male",
+                            "year_died": 1945,
+                            "spouses": [{ "name": "Nguyễn Thị Vênh", "year_died": 1995, "origin": "Kỳ Côi" }],
+                            "children": [
+                              { "name": "Nguyễn Văn Khuồng", "gender": "male", "year_died": 1945, "note": "Vô tự" },
+                              { "name": "Nguyễn Văn Tuồng", "gender": "male", "year_died": 1945, "note": "Vô tự" },
+                              { "name": "Nguyễn Thị Chuốc", "gender": "female", "yearBorn": 1937, "year_died": 2007, "note": "Vô tự" },
+                              {
+                                "id": "DT7_N1C3_6_4",
+                                "name": "Nguyễn Văn Phớt",
+                                "gender": "male",
+                                "yearBorn": 1935,
+                                "year_died": 2005,
+                                "spouses": [{ "name": "Đỗ Thị Loan", "yearBorn": 1939, "origin": "Cẩm La" }],
+                                "children": [
+                                  {
+                                    "name": "Nguyễn Thị Huệ",
+                                    "gender": "female",
+                                    "yearBorn": 1962,
+                                    "spouses": [{ "name": "Nguyễn Văn Thinh", "origin": "Ngọ Dương" }],
+                                    "children": [
+                                      { "name": "Nguyễn Văn Minh", "gender": "male" },
+                                      { "name": "Nguyễn Thùy Trang", "gender": "female" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Văn Thìn",
+                                    "gender": "male",
+                                    "yearBorn": 1964,
+                                    "spouses": [{ "name": "Nguyễn Thị Liễu", "origin": "Kỳ Côi" }],
+                                    "children": [
+                                      {
+                                        "name": "Nguyễn Thị Nhung",
+                                        "gender": "female",
+                                        "yearBorn": 1991,
+                                        "spouses": [{ "name": "Nguyễn Văn Thanh", "origin": "Tiên Lãng" }],
+                                        "children": [
+                                          { "name": "Vũ Minh Ngọc", "gender": "female" },
+                                          { "name": "Vũ Hải Đăng", "gender": "male" }
+                                        ]
+                                      },
+                                      { "name": "Nguyễn Văn Vinh", "gender": "male", "yearBorn": 1993 }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Thị Thế",
+                                    "gender": "female",
+                                    "yearBorn": 1967,
+                                    "spouses": [
+                                      { "name": "Nguyễn văn Tám", "note": "Chồng 1" },
+                                      { "name": "Vũ Văn Toàn", "origin": "Lại Đông", "note": "Chồng 2" }
+                                    ],
+                                    "children": [
+                                      { "name": "Nguyễn Phương Thảo", "gender": "female" },
+                                      { "name": "Nguyễn Thị Hiên", "gender": "female" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Văn Phú",
+                                    "gender": "male",
+                                    "yearBorn": 1970,
+                                    "spouses": [{ "name": "Nguyễn Thị Bích Vui", "origin": "Kỳ Côi" }],
+                                    "children": [
+                                      { "name": "Nguyễn Anh Tú", "gender": "male" },
+                                      { "name": "Nguyễn thùy Trâm", "gender": "female" }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn Văn Quý",
+                                    "gender": "male",
+                                    "yearBorn": 1972,
+                                    "spouses": [{ "name": "Nguyễn Thị Phượng", "origin": "Đồng gia" }],
+                                    "children": [
+                                      { "name": "Nguyễn văn Quyền", "gender": "male", "yearBorn": 2008 },
+                                      { "name": "Nguyễn Thị Nga", "gender": "female", "yearBorn": 2010 }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Nguyễn văn Tuynh",
+                                    "gender": "male",
+                                    "yearBorn": 1974,
+                                    "spouses": [{ "name": "Phạm thị Hanh", "origin": "Kinh Môn" }],
+                                    "children": [{ "name": "Nguyễn Đức Hải", "gender": "male", "yearBorn": 2007 }]
+                                  }
+                                ]
+                              },
+                              { "name": "Nguyễn Văn Phợt", "gender": "male", "year_died": 1945, "note": "Vô tự" },
+                              { "name": "Nguyễn Thị Bé", "gender": "female", "year_died": 1945, "note": "Vô tự" }
+                            ]
+                          }
+                        ]
+                      },
+                      { "name": "Nguyễn Bá Húy", "gender": "male", "note": "Giỗ 15/07", "children": [] }
+                    ]
+                  },
+                  {
+                    "id": "D4_4",
+                    "name": "Nguyễn Bá Viết",
+                    "gender": "male",
+                    "note": "Đời Thứ IV - Tổ Ngành II",
+                    "spouses": [{ "name": "Nguyễn Thị Cuốn" }],
+                    "children": []
+                  },
+                  { "id": "D4_2", "name": "Nguyễn Bá Thức", "gender": "male", "children": [] },
+                  { "id": "D4_3", "name": "Nguyễn Bá Thú", "gender": "male", "children": [] },
+                  { "id": "D4_5", "name": "Nguyễn Bá Chuyện", "gender": "male", "children": [] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

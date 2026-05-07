@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gia Phả – Dòng Họ Nguyễn Hữu (Thôn Kỳ Côi)</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; color: #222; }
+
+#app { display: flex; height: 100vh; overflow: hidden; }
+#sidebar {
+  width: 360px; min-width: 260px; background: #1e293b; color: #e2e8f0;
+  display: flex; flex-direction: column; z-index: 10; box-shadow: 3px 0 15px rgba(0,0,0,.3);
+}
+#tree-container { flex: 1; overflow: hidden; position: relative; background: #060f1e; }
+
+/* ── Sidebar header ─────────────────────────────────────── */
+#sidebar-header {
+  padding: 14px 16px 12px; background: #0f172a; border-bottom: 1px solid #1e3a5f;
+  flex-shrink: 0;
+}
+.header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+#sidebar-header h1 { font-size: 14px; font-weight: 700; color: #f1f5f9; line-height: 1.4; letter-spacing: -.01em; }
+#sidebar-header p  { font-size: 11px; color: #475569; margin-top: 3px; }
+
+/* ── Theme toggle button ─────────────────────────────────── */
+#theme-btn {
+  width: 34px; height: 34px; border: none; border-radius: 10px; flex-shrink: 0;
+  background: #1a2942; cursor: pointer; font-size: 17px;
+  display: flex; align-items: center; justify-content: center;
+}
+#theme-btn:hover { background: #243652; }
+body.light-mode #sidebar-header { background: #1e293b; border-bottom-color: #334155; }
+body.light-mode #theme-btn { background: #334155; }
+body.light-mode #theme-btn:hover { background: #475569; }
+
+/* ── View toggle ─────────────────────────────────────────── */
+#view-toggle {
+  display: flex; padding: 10px 12px; gap: 0;
+  border-bottom: 1px solid #334155; flex-shrink: 0; background: #1e293b;
+}
+.vt-btn {
+  flex: 1; padding: 8px 4px; border: 1px solid #2d3f55; background: #0f172a;
+  color: #64748b; font-size: 11px; font-weight: 600; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 3px; line-height: 1;
+  transition: all .15s;
+}
+.vt-btn:first-child { border-radius: 8px 0 0 8px; }
+.vt-btn:last-child  { border-radius: 0 8px 8px 0; }
+.vt-icon { font-size: 15px; }
+.vt-btn:hover:not(.vt-active) { background: #1e293b; color: #94a3b8; }
+.vt-btn.vt-active { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
+
+/* ── Modal buttons (keep for forms) ─────────────────────── */
+.btn {
+  padding: 5px 10px; border: none; border-radius: 6px; cursor: pointer;
+  font-size: 11px; font-weight: 600; transition: opacity .15s;
+}
+.btn:hover { opacity: .85; }
+.btn-primary   { background: #3b82f6; color: #fff; }
+.btn-success   { background: #10b981; color: #fff; }
+.btn-warning   { background: #f59e0b; color: #fff; }
+.btn-danger    { background: #ef4444; color: #fff; }
+.btn-secondary { background: #475569; color: #e2e8f0; }
+
+/* ── Quick actions bar ───────────────────────────────────── */
+#quick-actions {
+  display: flex; align-items: center; padding: 8px 10px; gap: 4px;
+  border-bottom: 1px solid #334155; flex-shrink: 0; background: #1e293b;
+}
+.qa-group { display: flex; gap: 3px; }
+.qa-spacer { flex: 1; }
+.qa-btn {
+  padding: 5px 9px; border: none; border-radius: 7px; background: #0f172a;
+  color: #94a3b8; font-size: 11px; font-weight: 600; cursor: pointer;
+  white-space: nowrap; display: flex; align-items: center; gap: 4px; transition: all .15s;
+}
+.qa-btn:hover { background: #334155; color: #e2e8f0; }
+.qa-btn:disabled { opacity: .35; cursor: not-allowed; }
+.qa-icon { font-size: 13px; line-height: 1; }
+
+/* ── Admin section ───────────────────────────────────────── */
+.admin-btn { display: none; }
+#admin-section {
+  padding: 10px 12px; border-bottom: 1px solid #334155;
+  background: #130f23; flex-shrink: 0;
+}
+.section-label {
+  font-size: 9px; font-weight: 700; color: #6d28d9; letter-spacing: .09em;
+  margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+}
+.section-label::after { content:''; flex:1; height:1px; background:#2e1a60; }
+.admin-actions { display: flex; gap: 6px; }
+.adm-btn {
+  flex: 1; padding: 7px 4px; border: none; border-radius: 7px; cursor: pointer;
+  font-size: 11px; font-weight: 700; transition: all .15s;
+}
+.adm-btn:hover:not(:disabled) { filter: brightness(1.18); transform: translateY(-1px); }
+.adm-btn:disabled { opacity: .3; cursor: not-allowed; transform: none; }
+.adm-success { background: #065f46; color: #6ee7b7; }
+.adm-primary { background: #1e3a8a; color: #93c5fd; }
+.adm-warning { background: #78350f; color: #fcd34d; }
+.adm-danger  { background: #7f1d1d; color: #fca5a5; }
+
+/* ── Detail panel ────────────────────────────────────────── */
+#detail-panel { flex: 1; overflow-y: auto; padding: 14px 14px 8px; }
+
+#no-selection { text-align: center; padding: 36px 16px; color: #475569; font-size: 13px; }
+#no-selection svg { opacity: .2; margin-bottom: 12px; }
+#no-selection .hint { margin-top: 8px; font-size: 11px; color: #334155; line-height: 1.5; }
+
+#person-info { display: none; }
+
+/* Person card header */
+.pi-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.pi-avatar {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
+}
+.av-male   { background: linear-gradient(135deg,#1e3a8a,#1d4ed8); color: #bfdbfe; box-shadow: 0 0 0 3px #1e3a8a55; }
+.av-female { background: linear-gradient(135deg,#831843,#be185d); color: #fbcfe8; box-shadow: 0 0 0 3px #83184355; }
+.pi-title  { flex: 1; min-width: 0; }
+.pi-name   { font-size: 16px; font-weight: 700; color: #f1f5f9; line-height: 1.3; word-break: break-word; }
+.pi-code   { font-size: 10px; color: #475569; font-family: monospace; margin-top: 3px; }
+
+/* Path breadcrumb */
+#pi-path {
+  background: #0a1628; border: 1px solid #1e293b; border-radius: 8px;
+  padding: 7px 10px; margin-bottom: 12px; line-height: 1.7;
+  display: none; word-break: break-word;
+}
+.path-label { font-size: 9px; color: #334155; font-weight: 700; letter-spacing: .07em; display: block; margin-bottom: 2px; }
+.path-seg   { font-size: 11px; color: #64748b; }
+.path-seg:last-child { color: #38bdf8; font-weight: 700; }
+.path-sep   { color: #1e3a5f; font-size: 12px; padding: 0 2px; }
+
+/* Gender badge */
+.badge {
+  display: inline-block; padding: 3px 10px; border-radius: 99px;
+  font-size: 11px; font-weight: 700; margin-bottom: 12px; letter-spacing: .02em;
+}
+.badge-male   { background: #1e3a8a22; color: #93c5fd; border: 1px solid #1e3a8a66; }
+.badge-female { background: #83184322; color: #f9a8d4; border: 1px solid #83184366; }
+
+/* Info rows */
+.pi-info { margin-bottom: 12px; border: 1px solid #1a2535; border-radius: 8px; overflow: hidden; }
+.pi-row { display: flex; padding: 7px 10px; gap: 8px; font-size: 12px; border-bottom: 1px solid #1a2535; }
+.pi-row:last-child { border-bottom: none; }
+.pi-key { color: #475569; min-width: 70px; flex-shrink: 0; font-size: 11px; }
+.pi-val { color: #cbd5e1; }
+
+/* Spouse cards */
+.spouse-section-label { font-size: 10px; font-weight: 700; color: #475569; letter-spacing: .06em; margin-bottom: 6px; }
+.spouse-card { background: #0a1628; border: 1px solid #1e293b; border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; }
+.spouse-name { font-size: 13px; color: #c4b5fd; font-weight: 600; }
+.spouse-meta { font-size: 11px; color: #475569; margin-top: 3px; }
+
+/* ── Sidebar footer ──────────────────────────────────────── */
+#sidebar-footer {
+  padding: 10px 12px; border-top: 1px solid #1e293b; background: #0a1222;
+  flex-shrink: 0; display: flex; align-items: center; gap: 8px;
+}
+#btn-login {
+  flex: 1; padding: 8px 10px; border: 1px solid #334155; border-radius: 8px;
+  background: transparent; color: #64748b; font-size: 12px; font-weight: 500;
+  cursor: pointer; transition: all .15s; text-align: center;
+}
+#btn-login:hover { border-color: #475569; color: #94a3b8; background: #1e293b; }
+#admin-footer { display: none; align-items: center; gap: 8px; width: 100%; }
+#admin-label { font-size: 12px; font-weight: 700; color: #4ade80; flex: 1; display: flex; align-items: center; gap: 5px; }
+#admin-label::before { content: '●'; font-size: 8px; color: #22c55e; }
+#btn-logout {
+  padding: 6px 12px; border: 1px solid #7f1d1d; border-radius: 7px;
+  background: transparent; color: #f87171; font-size: 11px; font-weight: 600; cursor: pointer; transition: all .15s;
+}
+#btn-logout:hover { background: #7f1d1d; color: #fff; }
+
+#tree-svg { width: 100%; height: 100%; }
+.link { fill: none; stroke: #1e3a5f; stroke-width: 1.5px; }
+.node circle { cursor: pointer; }
+.node.selected > circle { stroke: #fbbf24 !important; stroke-width: 4px !important; filter: drop-shadow(0 0 6px #fbbf24); }
+.node text { font-size: 11px; pointer-events: none; font-family: 'Segoe UI', sans-serif; }
+.label-name { fill: #cbd5e1; font-weight: 600; }
+.label-code { fill: #334155; font-size: 9px; }
+
+#zoom-controls {
+  position: absolute; bottom: 20px; right: 20px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+#zoom-controls button {
+  width: 36px; height: 36px; border: none; border-radius: 8px;
+  background: #0f1f36; color: #64748b; font-size: 18px; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,.5); transition: background .15s, color .15s;
+  border: 1px solid #1e3a5f;
+}
+#zoom-controls button:hover { background: #1e293b; color: #e2e8f0; }
+
+#legend {
+  position: absolute; top: 14px; left: 14px;
+  background: rgba(6,15,30,.92); color: #94a3b8; border-radius: 8px;
+  padding: 8px 12px; font-size: 11px; box-shadow: 0 2px 12px rgba(0,0,0,.4);
+  max-height: 80vh; overflow-y: auto; border: 1px solid #1e3a5f;
+}
+.leg-section { font-weight: 700; color: #334155; margin: 6px 0 3px; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; }
+.leg-section:first-child { margin-top: 0; }
+.leg-row { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; color: #64748b; }
+.leg-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+.modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6);
+  z-index: 100; align-items: center; justify-content: center;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: #fff; border-radius: 12px; padding: 28px; width: 520px; max-width: 95vw;
+  max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,.4);
+}
+.modal h3 { font-size: 17px; font-weight: 700; margin-bottom: 18px; color: #1e293b; }
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 5px; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 8px 10px; border: 1.5px solid #e2e8f0; border-radius: 7px;
+  font-size: 13px; outline: none; transition: border-color .15s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #3b82f6; }
+.form-row { display: flex; gap: 10px; }
+.form-row .form-group { flex: 1; }
+#spouses-container .spouse-entry {
+  background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 8px;
+  padding: 10px; margin-bottom: 8px; position: relative;
+}
+#spouses-container .spouse-entry .remove-spouse {
+  position: absolute; top: 8px; right: 8px; background: #fee2e2;
+  border: none; border-radius: 5px; color: #dc2626; cursor: pointer; font-size: 12px; padding: 2px 6px;
+}
+.modal-footer { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+
+.admin-btn { display: none; }
+#auth-info { display: flex; align-items: center; gap: 5px; margin-left: auto; }
+
+/* ── List view ───────────────────────────────────────────── */
+#list-container {
+  display: none; flex-direction: column;
+  position: absolute; inset: 0; background: #060f1e; z-index: 1;
+}
+#list-search-bar {
+  padding: 12px 16px; background: #0f172a; border-bottom: 1px solid #1e3a5f;
+  display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+}
+#list-search {
+  flex: 1; max-width: 420px; padding: 8px 12px;
+  border: 1.5px solid #1e3a5f; border-radius: 8px; font-size: 14px; outline: none;
+  background: #060f1e; color: #e2e8f0;
+}
+#list-search::placeholder { color: #334155; }
+#list-search:focus { border-color: #2563eb; }
+#list-count { font-size: 12px; color: #334155; white-space: nowrap; }
+#list-table-wrap { flex: 1; overflow-y: auto; }
+#list-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+#list-table thead tr {
+  background: #0f172a; color: #64748b; position: sticky; top: 0; z-index: 2;
+  border-bottom: 1px solid #1e3a5f;
+}
+#list-table thead th { padding: 10px 14px; text-align: left; font-weight: 600; white-space: nowrap; }
+#list-table tbody tr { border-bottom: 1px solid #0d1a2e; cursor: pointer; transition: background .1s; }
+#list-table tbody tr:hover { background: #0f1f36; }
+#list-table tbody tr.list-selected { background: #1a2942; }
+.lc-name { padding: 8px 14px; font-weight: 500; color: #cbd5e1; }
+.lc      { padding: 8px 14px; color: #475569; }
+.lc-note { padding: 8px 14px; color: #334155; font-size: 12px; max-width: 220px;
+           white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.list-tog {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border: none; border-radius: 4px; cursor: pointer;
+  background: #1e293b; color: #64748b; font-size: 10px; flex-shrink: 0;
+  margin-right: 4px; vertical-align: middle;
+}
+.list-tog:hover { background: #334155; color: #94a3b8; }
+.list-tog-gap { display: inline-block; width: 24px; flex-shrink: 0; }
+
+/* ── Hamburger button (mobile) ───────────────────────────── */
+#mob-menu-btn {
+  display: none; position: absolute; top: 12px; left: 12px; z-index: 20;
+  width: 44px; height: 44px; border: none; border-radius: 10px;
+  background: #1e293b; color: #e2e8f0; font-size: 22px; cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,.4); align-items: center; justify-content: center;
+}
+
+/* ── Sidebar backdrop (mobile) ───────────────────────────── */
+#sidebar-overlay {
+  display: none; position: fixed; inset: 0; z-index: 9;
+  background: rgba(0,0,0,.45);
+}
+#sidebar-overlay.mob-open { display: block; }
+
+/* ── Bottom sheet — person detail (mobile) ───────────────── */
+#mob-sheet {
+  display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 15;
+  background: #1e293b; border-radius: 18px 18px 0 0;
+  padding: 0 16px env(safe-area-inset-bottom, 16px);
+  max-height: 56vh; overflow-y: auto;
+  box-shadow: 0 -6px 24px rgba(0,0,0,.4);
+  transform: translateY(100%); transition: transform .28s cubic-bezier(.4,0,.2,1);
+}
+#mob-sheet.open { transform: translateY(0); }
+#mob-sheet-handle {
+  width: 36px; height: 4px; background: #475569; border-radius: 2px;
+  margin: 10px auto 14px;
+}
+#mob-sheet-close {
+  position: absolute; top: 8px; right: 14px; background: none; border: none;
+  color: #94a3b8; font-size: 22px; line-height: 1; cursor: pointer; padding: 4px;
+}
+
+/* ── Media query ≤ 767 px ────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Sidebar = fixed drawer */
+  #sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: min(88vw, 320px); z-index: 10;
+    transform: translateX(-100%);
+    transition: transform .28s cubic-bezier(.4,0,.2,1);
+  }
+  #sidebar.mob-open { transform: translateX(0); }
+
+  /* Tree takes full screen */
+  #tree-container { width: 100vw; }
+
+  /* Show hamburger */
+  #mob-menu-btn { display: flex; }
+
+  /* Quick actions: horizontal scroll on mobile */
+  #quick-actions { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
+  #quick-actions::-webkit-scrollbar { display: none; }
+  #admin-section .admin-actions { flex-wrap: nowrap; overflow-x: auto; }
+
+  /* Detail panel hidden on mobile — replaced by bottom sheet */
+  #detail-panel { display: none; }
+  #mob-sheet { display: block; }
+
+  /* Legend: smaller, shifted right to clear hamburger */
+  #legend { top: 66px; left: 8px; font-size: 10px; padding: 5px 8px; max-height: 38vh; }
+
+  /* Bigger zoom touch targets */
+  #zoom-controls { bottom: 80px; right: 14px; }
+  #zoom-controls button { width: 46px; height: 46px; font-size: 22px; border-radius: 10px; }
+
+  /* Modal full width, forms stack vertically */
+  .modal { padding: 20px 14px; border-radius: 12px 12px 0 0; }
+  .modal-overlay { align-items: flex-end; }
+  .form-row { flex-direction: column; gap: 0; }
+}
+
+/* ── Smooth transitions (only after initial load) ───────── */
+body.theme-ready .link { transition: stroke .28s ease; }
+body.theme-ready .label-name,
+body.theme-ready .label-code { transition: fill .28s ease; }
+body.theme-ready #tree-container,
+body.theme-ready #legend,
+body.theme-ready #list-container,
+body.theme-ready #list-search-bar,
+body.theme-ready #list-search,
+body.theme-ready #list-table thead tr,
+body.theme-ready #list-table tbody tr,
+body.theme-ready .lc-name,
+body.theme-ready .lc,
+body.theme-ready .list-tog,
+body.theme-ready #zoom-controls button,
+body.theme-ready #sidebar,
+body.theme-ready #sidebar-header,
+body.theme-ready #theme-btn,
+body.theme-ready #view-toggle,
+body.theme-ready .vt-btn,
+body.theme-ready #quick-actions,
+body.theme-ready .qa-btn,
+body.theme-ready #admin-section,
+body.theme-ready #detail-panel,
+body.theme-ready .pi-name,
+body.theme-ready .pi-code,
+body.theme-ready #pi-path,
+body.theme-ready .pi-avatar,
+body.theme-ready .pi-info,
+body.theme-ready .pi-row,
+body.theme-ready .pi-key,
+body.theme-ready .pi-val,
+body.theme-ready .badge,
+body.theme-ready .spouse-card,
+body.theme-ready .spouse-name,
+body.theme-ready #sidebar-footer,
+body.theme-ready #btn-login,
+body.theme-ready #admin-label,
+body.theme-ready #btn-logout,
+body.theme-ready #copyright,
+body.theme-ready #tree-container,
+body.theme-ready #mob-sheet {
+  transition: background-color .28s ease, color .28s ease,
+              border-color .28s ease, box-shadow .28s ease;
+}
+
+/* ── Copyright ───────────────────────────────────────────── */
+#copyright {
+  padding: 7px 12px; background: #060d1a; text-align: center;
+  font-size: 10px; color: #1e3a5f; letter-spacing: .04em; flex-shrink: 0;
+  border-top: 1px solid #0f172a; font-style: italic; white-space: nowrap;
+}
+body.light-mode #copyright { background: #e2e8f0; color: #94a3b8; border-top-color: #cbd5e1; }
+
+/* ── Light mode overrides ────────────────────────────────── */
+body.light-mode #sidebar             { background: #f8fafc; color: #1e293b; }
+body.light-mode #view-toggle         { background: #f1f5f9; border-bottom-color: #e2e8f0; }
+body.light-mode .vt-btn              { background: #fff; border-color: #cbd5e1; color: #64748b; }
+body.light-mode .vt-btn.vt-active    { background: #2563eb; color: #fff; border-color: #2563eb; }
+body.light-mode .vt-btn:hover:not(.vt-active) { background: #e2e8f0; color: #334155; }
+body.light-mode #quick-actions       { background: #f1f5f9; border-bottom-color: #e2e8f0; }
+body.light-mode .qa-btn              { background: #fff; color: #475569; border: 1px solid #e2e8f0; }
+body.light-mode .qa-btn:hover        { background: #e2e8f0; color: #1e293b; border-color: #cbd5e1; }
+body.light-mode #admin-section       { background: #faf5ff; border-bottom-color: #ede9fe; }
+body.light-mode .section-label       { color: #7c3aed; }
+body.light-mode .section-label::after { background: #ddd6fe; }
+body.light-mode #detail-panel        { background: #f8fafc; }
+body.light-mode #no-selection        { color: #94a3b8; }
+body.light-mode #no-selection svg    { stroke: #cbd5e1; }
+body.light-mode .pi-name             { color: #0f172a; }
+body.light-mode .pi-code             { color: #94a3b8; }
+body.light-mode .pi-avatar.av-male   { background: linear-gradient(135deg,#dbeafe,#bfdbfe); color: #1d4ed8; box-shadow: 0 0 0 3px #bfdbfe55; }
+body.light-mode .pi-avatar.av-female { background: linear-gradient(135deg,#fce7f3,#fbcfe8); color: #be185d; box-shadow: 0 0 0 3px #fbcfe855; }
+body.light-mode #pi-path             { background: #fff; border-color: #e2e8f0; }
+body.light-mode .path-label          { color: #94a3b8; }
+body.light-mode .path-seg            { color: #94a3b8; }
+body.light-mode .path-seg:last-child { color: #2563eb; font-weight: 700; }
+body.light-mode .path-sep            { color: #cbd5e1; }
+body.light-mode .badge-male          { background: #dbeafe; color: #1d4ed8; border-color: #bfdbfe; }
+body.light-mode .badge-female        { background: #fce7f3; color: #be185d; border-color: #fbcfe8; }
+body.light-mode .pi-info             { border-color: #e2e8f0; }
+body.light-mode .pi-row              { border-bottom-color: #f1f5f9; }
+body.light-mode .pi-key              { color: #94a3b8; }
+body.light-mode .pi-val              { color: #1e293b; }
+body.light-mode .spouse-section-label { color: #94a3b8; }
+body.light-mode .spouse-card         { background: #fff; border-color: #e2e8f0; }
+body.light-mode .spouse-name         { color: #7c3aed; }
+body.light-mode .spouse-meta         { color: #94a3b8; }
+body.light-mode #sidebar-footer      { background: #f1f5f9; border-top-color: #e2e8f0; }
+body.light-mode #btn-login           { border-color: #e2e8f0; color: #64748b; background: #fff; }
+body.light-mode #btn-login:hover     { background: #f1f5f9; border-color: #cbd5e1; }
+body.light-mode #admin-label         { color: #059669; }
+body.light-mode #admin-label::before { color: #059669; }
+body.light-mode #btn-logout          { border-color: #fecaca; color: #dc2626; }
+body.light-mode #btn-logout:hover    { background: #fef2f2; }
+body.light-mode #copyright           { background: #e2e8f0; color: #94a3b8; border-top-color: #cbd5e1; }
+body.light-mode #mob-sheet           { background: #f8fafc; }
+body.light-mode #mob-sheet-handle    { background: #cbd5e1; }
+body.light-mode #mob-sheet-close     { color: #64748b; }
+/* Tree – light mode */
+body.light-mode #tree-container      { background: #f8fafc; }
+body.light-mode .link                { stroke: #cbd5e1; }
+body.light-mode .label-name          { fill: #1e293b; }
+body.light-mode .label-code          { fill: #94a3b8; }
+body.light-mode #legend              { background: rgba(255,255,255,.96); color: #475569; border-color: #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+body.light-mode .leg-section         { color: #64748b; }
+body.light-mode .leg-row             { color: #475569; }
+body.light-mode #zoom-controls button { background: #fff; color: #475569; border-color: #e2e8f0; box-shadow: 0 2px 6px rgba(0,0,0,.1); }
+body.light-mode #zoom-controls button:hover { background: #f1f5f9; color: #1e293b; }
+/* List – light mode */
+body.light-mode #list-container      { background: #f8fafc; }
+body.light-mode #list-search-bar     { background: #fff; border-bottom-color: #e2e8f0; }
+body.light-mode #list-search         { background: #fff; color: #1e293b; border-color: #e2e8f0; }
+body.light-mode #list-search::placeholder { color: #94a3b8; }
+body.light-mode #list-count          { color: #64748b; }
+body.light-mode #list-table thead tr { background: #1e293b; color: #e2e8f0; border-bottom-color: #334155; }
+body.light-mode #list-table tbody tr { border-bottom-color: #f1f5f9; }
+body.light-mode #list-table tbody tr:hover       { background: #f0f9ff; }
+body.light-mode #list-table tbody tr.list-selected { background: #fef9c3; }
+body.light-mode .lc-name             { color: #1e293b; }
+body.light-mode .lc                  { color: #475569; }
+body.light-mode .lc-note             { color: #94a3b8; }
+body.light-mode .list-tog            { background: #e2e8f0; color: #475569; }
+body.light-mode .list-tog:hover      { background: #cbd5e1; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="sidebar">
+    <!-- Header -->
+    <div id="sidebar-header">
+      <div class="header-row">
+        <h1>🌳 Gia Phả Dòng Họ Nguyễn Hữu</h1>
+        <button id="theme-btn" onclick="toggleTheme()" title="Chuyển chế độ sáng / tối">
+          <span id="theme-icon">☀️</span>
+        </button>
+      </div>
+      <p>Thôn Kỳ Côi – Ngành I</p>
+    </div>
+
+    <!-- View toggle -->
+    <div id="view-toggle">
+      <button id="btn-h"    class="vt-btn vt-active" onclick="setOrientation('h')">
+        <span class="vt-icon">↔</span>Ngang
+      </button>
+      <button id="btn-v"    class="vt-btn" onclick="setOrientation('v')">
+        <span class="vt-icon">↕</span>Dọc
+      </button>
+      <button id="btn-list" class="vt-btn" onclick="setOrientation('list')">
+        <span class="vt-icon">☰</span>Danh sách
+      </button>
+    </div>
+
+    <!-- Quick actions -->
+    <div id="quick-actions">
+      <div class="qa-group">
+        <button class="qa-btn" onclick="collapseAll()" title="Thu gọn tất cả">
+          <span class="qa-icon">⊟</span>Thu gọn
+        </button>
+        <button class="qa-btn" onclick="expandAll()" title="Mở rộng tất cả">
+          <span class="qa-icon">⊞</span>Mở rộng
+        </button>
+      </div>
+      <div class="qa-spacer"></div>
+      <div class="qa-group">
+        <button class="qa-btn" onclick="exportData()" title="Xuất JSON">
+          <span class="qa-icon">💾</span>JSON
+        </button>
+        <button class="qa-btn" id="btn-img" onclick="exportImage()" title="Xuất ảnh PNG">
+          <span class="qa-icon">📷</span>PNG
+        </button>
+      </div>
+    </div>
+
+    <!-- Admin section (hidden unless logged in) -->
+    <div id="admin-section" class="admin-btn">
+      <div class="section-label">QUẢN LÝ CÂY GIA PHẢ</div>
+      <div class="admin-actions">
+        <button class="adm-btn adm-success" id="btn-add-root"   onclick="openAddModal(null)">＋ Gốc</button>
+        <button class="adm-btn adm-primary" id="btn-add-child"  onclick="openAddModal(selectedNode)" disabled>＋ Con</button>
+        <button class="adm-btn adm-warning" id="btn-edit"       onclick="openEditModal()" disabled>✏ Sửa</button>
+        <button class="adm-btn adm-danger"  id="btn-delete"     onclick="deleteSelected()" disabled>🗑</button>
+      </div>
+    </div>
+
+    <!-- Detail panel -->
+    <div id="detail-panel">
+      <div id="no-selection">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="1.5">
+          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        <p>Bấm vào một người để xem chi tiết</p>
+        <p class="hint">Double-click để thu gọn / mở rộng nhánh</p>
+      </div>
+      <div id="person-info">
+        <div class="pi-header">
+          <div class="pi-avatar av-male" id="pi-avatar">♂</div>
+          <div class="pi-title">
+            <div class="pi-name" id="pi-name"></div>
+            <div class="pi-code" id="pi-code"></div>
+          </div>
+        </div>
+        <div id="pi-path"></div>
+        <span class="badge badge-male" id="pi-gender"></span>
+        <div class="pi-info">
+          <div class="pi-row"><span class="pi-key">Năm sinh</span><span class="pi-val" id="pi-born"></span></div>
+          <div class="pi-row"><span class="pi-key">Năm mất</span><span class="pi-val"  id="pi-died"></span></div>
+          <div class="pi-row"><span class="pi-key">Ghi chú</span><span class="pi-val"  id="pi-note"></span></div>
+        </div>
+        <div class="spouse-section-label">VỢ / CHỒNG</div>
+        <div id="pi-spouses"></div>
+      </div>
+    </div>
+
+    <!-- Footer: auth -->
+    <div id="sidebar-footer">
+      <button id="btn-login" onclick="openLoginModal()">🔐 Đăng nhập Admin</button>
+      <div id="admin-footer">
+        <span id="admin-label">Admin</span>
+        <button id="btn-logout" onclick="logout()">Đăng xuất</button>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div id="copyright">© Nguyễn Anh Tú · Gia Phả Dòng Họ Nguyễn Hữu</div>
+  </div>
+
+  <div id="tree-container">
+    <button id="mob-menu-btn" onclick="toggleSidebar()" aria-label="Mở menu">☰</button>
+    <svg id="tree-svg"></svg>
+    <div id="legend">
+      <div class="leg-section">Giới tính</div>
+      <div class="leg-row"><span style="font-size:14px;line-height:1">♂</span> Nam</div>
+      <div class="leg-row"><span style="font-size:14px;line-height:1">♀</span> Nữ</div>
+      <div class="leg-row"><span class="leg-dot" style="background:#94a3b8"></span> Đã mất</div>
+      <div class="leg-row">
+        <span class="leg-dot" style="background:transparent;border:2.5px solid #fbbf24;box-sizing:border-box"></span> Đang chọn
+      </div>
+      <div class="leg-section">Màu theo đời</div>
+      <div id="gen-legend"></div>
+      <div class="leg-section">Thu gọn</div>
+      <div class="leg-row"><span class="leg-dot" style="background:#22c55e"></span> Có con (mở)</div>
+      <div class="leg-row"><span class="leg-dot" style="background:#f59e0b"></span> Có con (đóng)</div>
+    </div>
+    <div id="zoom-controls">
+      <button onclick="zoomIn()">+</button>
+      <button onclick="resetZoom()">⌂</button>
+      <button onclick="zoomOut()">−</button>
+    </div>
+    <div id="list-container">
+      <div id="list-search-bar">
+        <input type="search" id="list-search" placeholder="🔍 Tìm tên, ghi chú, mã đời..." oninput="filterList(this.value)">
+        <button class="btn btn-secondary" style="font-size:11px;padding:4px 9px;flex-shrink:0" onclick="listCollapseAll()">⊟ Thu gọn</button>
+        <button class="btn btn-secondary" style="font-size:11px;padding:4px 9px;flex-shrink:0" onclick="listExpandAll()">⊞ Mở rộng</button>
+        <span id="list-count"></span>
+      </div>
+      <div id="list-table-wrap">
+        <table id="list-table">
+          <thead>
+            <tr>
+              <th>Họ tên</th>
+              <th>Đời</th>
+              <th>Năm sinh</th>
+              <th>Năm mất</th>
+              <th>Ghi chú</th>
+            </tr>
+          </thead>
+          <tbody id="list-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile: sidebar backdrop -->
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- Mobile: bottom sheet person detail -->
+<div id="mob-sheet">
+  <div id="mob-sheet-handle"></div>
+  <button id="mob-sheet-close" onclick="closeMobSheet()">✕</button>
+  <div id="mob-sheet-content"></div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <h3 id="modal-title">Thêm thành viên mới</h3>
+    <input type="hidden" id="form-id">
+    <input type="hidden" id="form-parent-id">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Họ và tên *</label>
+        <input type="text" id="form-name" placeholder="Nguyễn Văn A">
+      </div>
+      <div class="form-group" style="max-width:130px">
+        <label>Giới tính *</label>
+        <select id="form-gender">
+          <option value="male">Nam</option>
+          <option value="female">Nữ</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Mã đời (code)</label>
+      <input type="text" id="form-code" placeholder="ĐT8/N1C3/...">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Năm sinh</label>
+        <input type="text" id="form-born" placeholder="1950">
+      </div>
+      <div class="form-group">
+        <label>Năm mất</label>
+        <input type="text" id="form-died" placeholder="(để trống nếu còn sống)">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Ghi chú</label>
+      <textarea id="form-note" rows="2" placeholder="Thông tin thêm..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Vợ / Chồng</label>
+      <div id="spouses-container"></div>
+      <button class="btn btn-secondary" style="margin-top:6px;font-size:12px" onclick="addSpouseField()">+ Thêm vợ/chồng</button>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal()">Hủy</button>
+      <button class="btn btn-primary" onclick="saveForm()">Lưu</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="login-overlay">
+  <div class="modal" style="width:340px">
+    <h3>🔐 Đăng nhập Admin</h3>
+    <div class="form-group">
+      <label>Tài khoản</label>
+      <input type="text" id="login-user" placeholder="admin" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label>Mật khẩu</label>
+      <input type="password" id="login-pass" placeholder="••••••" autocomplete="current-password">
+    </div>
+    <div id="login-error" style="color:#ef4444;font-size:12px;margin-bottom:10px;display:none"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeLoginModal()">Hủy</button>
+      <button class="btn btn-primary"   onclick="doLogin()">Đăng nhập</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Theme ──────────────────────────────────────────────────────────────────
+// Áp dụng theme ngay lập tức (trước khi render) để tránh flash
+(function() {
+  const saved  = localStorage.getItem('giapha_theme');
+  const prefer = window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  if ((saved || prefer) === 'light') document.body.classList.add('light-mode');
+  // Bật transition sau 2 frame để tránh animation khi load trang
+  requestAnimationFrame(() => requestAnimationFrame(() =>
+    document.body.classList.add('theme-ready')
+  ));
+})();
+
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light-mode');
+  const icon = document.getElementById('theme-icon');
+  // ☀️ = đang ở chế độ tối, click để sang sáng  |  🌙 = đang sáng, click để sang tối
+  if (icon) icon.textContent = isLight ? '🌙' : '☀️';
+  localStorage.setItem('giapha_theme', isLight ? 'light' : 'dark');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const icon = document.getElementById('theme-icon');
+  if (icon) icon.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
+});
+
+// ── State ──────────────────────────────────────────────────────────────────
+let treeData     = null;
+let selectedNode = null;
+let authToken    = null; // null = public, string = admin đã đăng nhập
+let svgEl, g, zoom, root;
+let orientation  = 'h'; // 'h' = horizontal, 'v' = vertical
+const collapsed  = new Set(); // node IDs that are collapsed
+
+const NODE_R = 14;
+
+// Generation color palette (depth 0 … 11, then cycles)
+const GEN_COLORS = [
+  '#6d28d9','#1e40af','#0369a1','#047857',
+  '#b45309','#be123c','#0f766e','#7e22ce',
+  '#c2410c','#0284c7','#15803d','#a21caf'
+];
+// Stroke = slightly darker
+let GEN_STROKES = [];
+window.addEventListener('DOMContentLoaded', () => {
+  GEN_STROKES = GEN_COLORS.map(c => d3.color(c).darker(0.7).formatHex());
+});
+
+function genFill(d) {
+  if (d.data.yearDied) return '#94a3b8';
+  return GEN_COLORS[d.depth % GEN_COLORS.length];
+}
+function genStroke(d) {
+  if (d.data.yearDied) return '#475569';
+  return GEN_STROKES.length ? GEN_STROKES[d.depth % GEN_STROKES.length] : '#000';
+}
+
+// ── Utilities ──────────────────────────────────────────────────────────────
+function uid() { return 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2,7); }
+
+// Gán id cho các node bị thiếu, trả về true nếu có sửa
+function ensureIds(node) {
+  let changed = false;
+  if (!node.id) { node.id = uid(); changed = true; }
+  for (const c of (node.children || [])) { if (ensureIds(c)) changed = true; }
+  return changed;
+}
+
+function findNode(data, id) {
+  if (data.id === id) return data;
+  for (const c of (data.children || [])) { const r = findNode(c, id); if (r) return r; }
+  return null;
+}
+
+function findPath(node, targetId, path) {
+  path = path || [];
+  path.push(node);
+  if (node.id === targetId) return path.slice();
+  for (const c of (node.children || [])) {
+    const r = findPath(c, targetId, path);
+    if (r) return r;
+  }
+  path.pop();
+  return null;
+}
+
+function removeNode(data, id) {
+  if (!data.children) return;
+  data.children = data.children.filter(c => c.id !== id);
+  for (const c of data.children) removeNode(c, id);
+}
+
+function collectIds(node, skipRoot) {
+  if (!skipRoot && node.children && node.children.length) collapsed.add(node.id);
+  for (const c of (node.children || [])) collectIds(c, false);
+}
+
+// ── Mobile drawer & bottom sheet ───────────────────────────────────────────
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('mob-open');
+  document.getElementById('sidebar-overlay').classList.add('mob-open');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('mob-open');
+  document.getElementById('sidebar-overlay').classList.remove('mob-open');
+}
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.contains('mob-open')
+    ? closeSidebar() : openSidebar();
+}
+function openMobSheet() {
+  document.getElementById('mob-sheet').classList.add('open');
+}
+function closeMobSheet() {
+  document.getElementById('mob-sheet').classList.remove('open');
+}
+
+// ── Auth ───────────────────────────────────────────────────────────────────
+function setAdminMode(isAdmin) {
+  document.querySelectorAll('.admin-btn').forEach(el => {
+    el.style.display = isAdmin
+      ? (el.tagName === 'DIV' ? 'block' : 'inline-flex')
+      : 'none';
+  });
+  document.getElementById('btn-login').style.display   = isAdmin ? 'none'  : 'block';
+  document.getElementById('admin-footer').style.display = isAdmin ? 'flex' : 'none';
+  if (!isAdmin) {
+    ['btn-add-child','btn-edit','btn-delete'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.disabled = true;
+    });
+  }
+}
+
+function openLoginModal() {
+  document.getElementById('login-user').value = '';
+  document.getElementById('login-pass').value = '';
+  document.getElementById('login-error').style.display = 'none';
+  document.getElementById('login-overlay').classList.add('active');
+  setTimeout(() => document.getElementById('login-user').focus(), 50);
+}
+function closeLoginModal() {
+  document.getElementById('login-overlay').classList.remove('active');
+}
+
+async function doLogin() {
+  const username = document.getElementById('login-user').value.trim();
+  const password = document.getElementById('login-pass').value;
+  const errEl    = document.getElementById('login-error');
+  errEl.style.display = 'none';
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      errEl.textContent   = err.error || 'Đăng nhập thất bại';
+      errEl.style.display = 'block';
+      return;
+    }
+    const { token } = await res.json();
+    authToken = token;
+    sessionStorage.setItem('giapha_token', token);
+    closeLoginModal();
+    setAdminMode(true);
+  } catch (e) {
+    errEl.textContent   = 'Lỗi kết nối server';
+    errEl.style.display = 'block';
+  }
+}
+
+async function logout() {
+  if (authToken) {
+    fetch('/api/logout', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + authToken }
+    }).catch(() => {});
+  }
+  authToken = null;
+  sessionStorage.removeItem('giapha_token');
+  selectedNode = null;
+  setAdminMode(false);
+  renderTree();
+  document.getElementById('person-info').style.display  = 'none';
+  document.getElementById('no-selection').style.display = 'block';
+}
+
+async function checkStoredToken(token) {
+  try {
+    const res = await fetch('/api/check', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    return res.ok;
+  } catch { return false; }
+}
+
+// ── Collapse / Expand ──────────────────────────────────────────────────────
+function collapseAll() {
+  collapsed.clear();
+  // collapse all non-root nodes that have children
+  for (const c of (treeData.children || [])) collectIds(c, false);
+  renderTree(); fitTree();
+}
+function expandAll() { collapsed.clear(); renderTree(); setTimeout(fitTree, 50); }
+
+function toggleCollapse(id) {
+  const orig = findNode(treeData, id);
+  if (!orig || !orig.children || !orig.children.length) return;
+  if (collapsed.has(id)) collapsed.delete(id); else collapsed.add(id);
+  renderTree();
+}
+
+// ── Orientation ────────────────────────────────────────────────────────────
+function setOrientation(o) {
+  orientation = o;
+  const isList = o === 'list';
+  document.getElementById('tree-svg').style.display       = isList ? 'none' : '';
+  document.getElementById('legend').style.display         = isList ? 'none' : '';
+  document.getElementById('zoom-controls').style.display  = isList ? 'none' : '';
+  document.getElementById('list-container').style.display = isList ? 'flex'  : 'none';
+  ['btn-h','btn-v','btn-list'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('vt-active', id === 'btn-' + o);
+  });
+  if (isList) { renderList(); return; }
+  renderTree(); fitTree();
+}
+
+// ── MongoDB API ────────────────────────────────────────────────────────────
+async function saveToMongo() {
+  if (!authToken) return;
+  try {
+    const res = await fetch('/api/tree', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authToken
+      },
+      body: JSON.stringify(treeData)
+    });
+    if (res.status === 401) {
+      alert('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.');
+      await logout();
+      return;
+    }
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+  } catch (e) {
+    console.error('Lỗi lưu dữ liệu:', e);
+    alert('Lỗi lưu dữ liệu vào MongoDB: ' + e.message);
+  }
+}
+
+async function loadAndInit() {
+  // Khôi phục phiên admin nếu có token lưu
+  const stored = sessionStorage.getItem('giapha_token');
+  if (stored) {
+    const valid = await checkStoredToken(stored);
+    if (valid) {
+      authToken = stored;
+    } else {
+      sessionStorage.removeItem('giapha_token');
+    }
+  }
+  setAdminMode(!!authToken);
+
+  try {
+    const res = await fetch('/api/tree');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    treeData = await res.json();
+    if (!treeData) {
+      alert('Chưa có dữ liệu trong MongoDB. Hãy import data.json trước.');
+      return;
+    }
+    // Tự động sửa các node thiếu id (vd: đời 7+)
+    if (ensureIds(treeData)) saveToMongo();
+  } catch (e) {
+    alert('Lỗi kết nối server: ' + e.message + '\nHãy chắc chắn server.js đang chạy.');
+    return;
+  }
+  initTree();
+}
+
+// ── Tree rendering ─────────────────────────────────────────────────────────
+function initTree() {
+  if (!treeData) return;
+  svgEl = d3.select('#tree-svg');
+  svgEl.selectAll('*').remove();
+  GEN_STROKES = GEN_COLORS.map(c => d3.color(c).darker(0.7).formatHex());
+  zoom = d3.zoom().scaleExtent([0.05, 4]).on('zoom', e => g.attr('transform', e.transform));
+  svgEl.call(zoom);
+  g = svgEl.append('g');
+  renderTree();
+  setTimeout(fitTree, 80);
+}
+
+function renderTree() {
+  if (!g) return;
+  g.selectAll('*').remove();
+  const isH = orientation === 'h';
+
+  const hier = d3.hierarchy(treeData, d =>
+    collapsed.has(d.id) ? null : (d.children && d.children.length ? d.children : null)
+  );
+
+  const layout = isH
+    ? d3.tree().nodeSize([38, 220])
+    : d3.tree().nodeSize([130, 120]);
+
+  root = layout(hier);
+
+  // Links
+  const linkGen = isH
+    ? d3.linkHorizontal().x(d => d.y).y(d => d.x)
+    : d3.linkVertical().x(d => d.x).y(d => d.y);
+
+  g.selectAll('.link')
+    .data(root.links())
+    .enter().append('path')
+    .attr('class', 'link')
+    .attr('d', linkGen);
+
+  // Nodes
+  const node = g.selectAll('.node')
+    .data(root.descendants())
+    .enter().append('g')
+    .attr('class', d => 'node' + (selectedNode && d.data.id === selectedNode.id ? ' selected' : ''))
+    .attr('transform', d => isH ? `translate(${d.y},${d.x})` : `translate(${d.x},${d.y})`)
+    .style('cursor', 'pointer')
+    .on('click',    (e, d) => { e.stopPropagation(); selectPerson(d.data); })
+    .on('dblclick', (e, d) => { e.stopPropagation(); toggleCollapse(d.data.id); });
+
+  // Circle (main)
+  node.append('circle')
+    .attr('r', NODE_R)
+    .style('fill',         d => genFill(d))
+    .style('stroke',       d => genStroke(d))
+    .style('stroke-width', d => selectedNode && d.data.id === selectedNode.id ? '4px' : '2.5px');
+
+  // Gender icon
+  node.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('dy', '0.38em')
+    .style('font-size', '13px')
+    .style('fill', '#fff')
+    .style('pointer-events', 'none')
+    .text(d => d.data.gender === 'female' ? '♀' : '♂');
+
+  // Collapse indicator dot (only for nodes that have children in the original data)
+  node.each(function(d) {
+    const orig = findNode(treeData, d.data.id);
+    if (!orig || !orig.children || !orig.children.length) return;
+    const isCollapsed = collapsed.has(d.data.id);
+    const cx = isH ? NODE_R : 0;
+    const cy = isH ? 0 : NODE_R;
+    const id = d.data.id;
+
+    d3.select(this).append('circle')
+      .attr('r', 6)
+      .attr('cx', cx)
+      .attr('cy', cy)
+      .style('fill', isCollapsed ? '#f59e0b' : '#22c55e')
+      .style('stroke', '#fff')
+      .style('stroke-width', '1.5px')
+      .style('cursor', 'pointer')
+      .on('click', e => { e.stopPropagation(); toggleCollapse(id); });
+
+    d3.select(this).append('text')
+      .attr('text-anchor', 'middle')
+      .attr('x', cx)
+      .attr('y', cy)
+      .attr('dy', '0.38em')
+      .style('font-size', '9px')
+      .style('fill', '#fff')
+      .style('pointer-events', 'none')
+      .text(isCollapsed ? '▶' : '▼');
+  });
+
+  // Name + code labels
+  if (isH) {
+    node.append('text')
+      .attr('class', 'label-name')
+      .attr('x', NODE_R + 8)
+      .attr('dy', '-0.25em')
+      .attr('dominant-baseline', 'auto')
+      .text(d => d.data.name.length > 22 ? d.data.name.slice(0,22) + '…' : d.data.name);
+
+    node.append('text')
+      .attr('class', 'label-code')
+      .attr('x', NODE_R + 8)
+      .attr('dy', '1em')
+      .attr('dominant-baseline', 'auto')
+      .text(d => d.data.code || '');
+  } else {
+    node.append('text')
+      .attr('class', 'label-name')
+      .attr('text-anchor', 'middle')
+      .attr('y', NODE_R + 5)
+      .attr('dy', '1em')
+      .text(d => d.data.name.length > 14 ? d.data.name.slice(0,14) + '…' : d.data.name);
+
+    node.append('text')
+      .attr('class', 'label-code')
+      .attr('text-anchor', 'middle')
+      .attr('y', NODE_R + 5)
+      .attr('dy', '2.3em')
+      .text(d => { const c = d.data.code||''; return c.length>12 ? c.slice(0,12)+'…':c; });
+  }
+
+  // Update generation legend
+  const maxDepth = Math.max(...root.descendants().map(d => d.depth));
+  const gl = document.getElementById('gen-legend');
+  gl.innerHTML = '';
+  for (let i = 0; i <= Math.min(maxDepth, GEN_COLORS.length - 1); i++) {
+    const row = document.createElement('div');
+    row.className = 'leg-row';
+    row.innerHTML = `<span class="leg-dot" style="background:${GEN_COLORS[i]}"></span> ${i===0?'Gốc':'Đời '+i}`;
+    gl.appendChild(row);
+  }
+}
+
+function fitTree() {
+  if (!root) return;
+  const isH = orientation === 'h';
+  const cw  = document.getElementById('tree-container').clientWidth;
+  const ch  = document.getElementById('tree-container').clientHeight;
+  const pad = 80;
+  const xs  = root.descendants().map(n => isH ? n.y : n.x);
+  const ys  = root.descendants().map(n => isH ? n.x : n.y);
+  const minX = Math.min(...xs), maxX = Math.max(...xs);
+  const minY = Math.min(...ys), maxY = Math.max(...ys);
+  const scale = Math.min(
+    (cw - pad*2) / Math.max(maxX - minX, 1),
+    (ch - pad*2) / Math.max(maxY - minY, 1),
+    1.5
+  );
+  const tx = cw/2 - (minX + maxX)/2 * scale;
+  const ty = ch/2 - (minY + maxY)/2 * scale;
+  svgEl.call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+}
+
+// ── List view ──────────────────────────────────────────────────────────────
+let _totalPersonCount = 0;
+
+function flattenTree(node, depth, result, respectCollapse) {
+  result.push({ ...node, _depth: depth });
+  if (respectCollapse && collapsed.has(node.id)) return;
+  for (const c of (node.children || [])) flattenTree(c, depth + 1, result, respectCollapse);
+}
+
+function renderList() {
+  const total = [];
+  flattenTree(treeData, 0, total, false);
+  _totalPersonCount = total.length;
+  document.getElementById('list-search').value = '';
+  filterList('');
+}
+
+function filterList(query) {
+  const q           = query.toLowerCase().trim();
+  const isSearching = q.length > 0;
+
+  const flat = [];
+  flattenTree(treeData, 0, flat, !isSearching);
+
+  const shown = isSearching
+    ? flat.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        (p.note || '').toLowerCase().includes(q) ||
+        (p.code || '').toLowerCase().includes(q)
+      )
+    : flat;
+
+  document.getElementById('list-count').textContent =
+    isSearching
+      ? `Tìm thấy ${shown.length} / ${_totalPersonCount} người`
+      : `${shown.length} / ${_totalPersonCount} người`;
+
+  const tbody = document.getElementById('list-body');
+  tbody.innerHTML = '';
+  if (!shown.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px;color:#94a3b8">Không tìm thấy kết quả</td></tr>';
+    return;
+  }
+
+  const frag = document.createDocumentFragment();
+  shown.forEach(p => {
+    const tr = document.createElement('tr');
+    if (selectedNode && p.id && p.id === selectedNode.id) tr.classList.add('list-selected');
+    tr.onclick = () => {
+      tbody.querySelectorAll('.list-selected').forEach(r => r.classList.remove('list-selected'));
+      tr.classList.add('list-selected');
+      selectPerson(p);
+    };
+
+    const hasChildren  = p.children && p.children.length > 0;
+    const isCollapsed_ = collapsed.has(p.id);
+    const gIcon = p.gender === 'female'
+      ? '<span style="color:#db2777">♀</span>'
+      : '<span style="color:#2563eb">♂</span>';
+    const indentPx = p._depth * 18;
+
+    let togHtml = '';
+    if (!isSearching) {
+      togHtml = hasChildren
+        ? `<button class="list-tog" onclick="event.stopPropagation();toggleListNode('${p.id}')">${isCollapsed_ ? '▶' : '▼'}</button>`
+        : '<span class="list-tog-gap"></span>';
+    }
+
+    tr.innerHTML = `
+      <td class="lc-name" style="padding-left:${8 + indentPx}px">
+        ${togHtml}${gIcon} ${p.name}
+      </td>
+      <td class="lc">${p._depth === 0 ? 'Gốc' : 'Đời ' + p._depth}</td>
+      <td class="lc">${p.yearBorn || '—'}</td>
+      <td class="lc">${p.yearDied || p.year_died || '—'}</td>
+      <td class="lc-note" title="${(p.note || '').replace(/"/g, '&quot;')}">${p.note || ''}</td>
+    `;
+    frag.appendChild(tr);
+  });
+  tbody.appendChild(frag);
+}
+
+function toggleListNode(id) {
+  if (collapsed.has(id)) collapsed.delete(id); else collapsed.add(id);
+  filterList(document.getElementById('list-search').value);
+}
+
+function listCollapseAll() {
+  collapsed.clear();
+  for (const c of (treeData.children || [])) collectIds(c, false);
+  filterList(document.getElementById('list-search').value);
+}
+
+function listExpandAll() {
+  collapsed.clear();
+  filterList(document.getElementById('list-search').value);
+}
+
+// ── Zoom ───────────────────────────────────────────────────────────────────
+function zoomIn()    { svgEl.transition().call(zoom.scaleBy, 1.35); }
+function zoomOut()   { svgEl.transition().call(zoom.scaleBy, 0.74); }
+function resetZoom() { fitTree(); }
+
+// ── Selection ──────────────────────────────────────────────────────────────
+function selectPerson(data) {
+  selectedNode = data;
+  if (orientation !== 'list') renderTree();
+  showDetail(data);
+  if (authToken) {
+    document.getElementById('btn-add-child').disabled = false;
+    document.getElementById('btn-edit').disabled      = false;
+    document.getElementById('btn-delete').disabled    = (data.id === 'root');
+  }
+  if (window.innerWidth <= 767) {
+    document.getElementById('mob-sheet-content').innerHTML =
+      document.getElementById('person-info').innerHTML;
+    openMobSheet();
+    closeSidebar();
+  }
+}
+
+function showDetail(d) {
+  document.getElementById('no-selection').style.display = 'none';
+  document.getElementById('person-info').style.display  = 'block';
+  document.getElementById('pi-name').textContent = d.name;
+  document.getElementById('pi-code').textContent = d.code || '';
+  const av = document.getElementById('pi-avatar');
+  if (av) { av.className = 'pi-avatar ' + (d.gender === 'female' ? 'av-female' : 'av-male'); av.textContent = d.gender === 'female' ? '♀' : '♂'; }
+  const pathEl = document.getElementById('pi-path');
+  const pathNodes = treeData ? findPath(treeData, d.id) : null;
+  if (pathNodes && pathNodes.length > 0) {
+    // Chỉ giữ nút nam trong đường đi, luôn giữ nút cuối (người đang click)
+    const malePath = pathNodes.filter((n, i) =>
+      i === pathNodes.length - 1 || n.gender !== 'female'
+    );
+    const segs = malePath.map((n, i) => {
+      const sep = i > 0 ? '<span class="path-sep">/</span>' : '';
+      return sep + `<span class="path-seg">${n.name}</span>`;
+    }).join('');
+    pathEl.innerHTML = `<span class="path-label">ĐƯỜNG ĐI</span>${segs}`;
+    pathEl.style.display = 'block';
+  } else {
+    pathEl.style.display = 'none';
+  }
+  const gb = document.getElementById('pi-gender');
+  gb.textContent = d.gender === 'female' ? '♀ Nữ' : '♂ Nam';
+  gb.className   = 'badge ' + (d.gender === 'female' ? 'badge-female' : 'badge-male');
+  document.getElementById('pi-born').textContent = d.yearBorn || '—';
+  document.getElementById('pi-died').textContent = d.yearDied || 'Còn sống';
+  document.getElementById('pi-note').textContent = d.note     || '—';
+  const sc = document.getElementById('pi-spouses');
+  sc.innerHTML = '';
+  (d.spouses || []).forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'spouse-card';
+    div.innerHTML = `<div class="spouse-name">${s.name}</div>`
+      + (s.origin ? `<div class="spouse-meta">📍 ${s.origin}</div>` : '')
+      + (s.note   ? `<div class="spouse-meta">📝 ${s.note}</div>`   : '');
+    sc.appendChild(div);
+  });
+  if (!d.spouses || !d.spouses.length)
+    sc.innerHTML = '<div style="color:#334155;font-size:12px;padding:4px 0">Chưa có thông tin</div>';
+}
+
+// ── Add / Edit ─────────────────────────────────────────────────────────────
+function openAddModal(parentData) {
+  if (!authToken) return;
+  document.getElementById('modal-title').textContent = 'Thêm thành viên mới';
+  document.getElementById('form-id').value        = uid();
+  document.getElementById('form-parent-id').value = parentData ? parentData.id : '';
+  ['form-name','form-code','form-born','form-died','form-note'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('form-gender').value = 'male';
+  document.getElementById('spouses-container').innerHTML = '';
+  document.getElementById('modal-overlay').classList.add('active');
+}
+
+function openEditModal() {
+  if (!authToken || !selectedNode) return;
+  const d = selectedNode;
+  document.getElementById('modal-title').textContent = 'Sửa thông tin';
+  document.getElementById('form-id').value        = d.id;
+  document.getElementById('form-parent-id').value = '';
+  document.getElementById('form-name').value   = d.name     || '';
+  document.getElementById('form-gender').value = d.gender   || 'male';
+  document.getElementById('form-code').value   = d.code     || '';
+  document.getElementById('form-born').value   = d.yearBorn || '';
+  document.getElementById('form-died').value   = d.yearDied || '';
+  document.getElementById('form-note').value   = d.note     || '';
+  const sc = document.getElementById('spouses-container');
+  sc.innerHTML = '';
+  (d.spouses || []).forEach(s => addSpouseField(s));
+  document.getElementById('modal-overlay').classList.add('active');
+}
+
+function addSpouseField(s) {
+  const sc = document.getElementById('spouses-container');
+  const div = document.createElement('div');
+  div.className = 'spouse-entry';
+  div.innerHTML = `
+    <button class="remove-spouse" onclick="this.parentElement.remove()">✕</button>
+    <div class="form-group" style="margin-bottom:6px">
+      <label>Tên vợ/chồng</label>
+      <input type="text" class="sp-name" placeholder="Họ và tên" value="${s ? s.name : ''}">
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label>Quê quán</label>
+        <input type="text" class="sp-origin" placeholder="Làng, xã..." value="${s ? s.origin : ''}">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label>Ghi chú</label>
+        <input type="text" class="sp-note" placeholder="Vợ 1, Vợ 2..." value="${s ? s.note : ''}">
+      </div>
+    </div>`;
+  sc.appendChild(div);
+}
+
+function closeModal() { document.getElementById('modal-overlay').classList.remove('active'); }
+
+function saveForm() {
+  const id       = document.getElementById('form-id').value;
+  const parentId = document.getElementById('form-parent-id').value;
+  const name     = document.getElementById('form-name').value.trim();
+  if (!name) { alert('Vui lòng nhập họ và tên.'); return; }
+
+  const spouses = [];
+  document.querySelectorAll('#spouses-container .spouse-entry').forEach(el => {
+    const n = el.querySelector('.sp-name').value.trim();
+    if (n) spouses.push({ name: n, origin: el.querySelector('.sp-origin').value.trim(), note: el.querySelector('.sp-note').value.trim() });
+  });
+
+  const person = {
+    id, name,
+    gender:   document.getElementById('form-gender').value,
+    code:     document.getElementById('form-code').value.trim(),
+    yearBorn: document.getElementById('form-born').value.trim() || null,
+    yearDied: document.getElementById('form-died').value.trim() || null,
+    note:     document.getElementById('form-note').value.trim(),
+    spouses, children: []
+  };
+
+  const existing = findNode(treeData, id);
+  if (existing) {
+    Object.assign(existing, { ...person, children: existing.children });
+    selectedNode = existing;
+  } else {
+    if (parentId) {
+      const parent = findNode(treeData, parentId);
+      if (parent) { if (!parent.children) parent.children = []; parent.children.push(person); collapsed.delete(parentId); }
+    } else {
+      if (!treeData.children) treeData.children = [];
+      treeData.children.push(person);
+    }
+    selectedNode = person;
+  }
+  closeModal(); renderTree(); if (selectedNode) showDetail(selectedNode);
+  saveToMongo();
+}
+
+// ── Delete ─────────────────────────────────────────────────────────────────
+function deleteSelected() {
+  if (!authToken || !selectedNode || selectedNode.id === 'root') return;
+  const node = findNode(treeData, selectedNode.id);
+  const cc = (node && node.children) ? node.children.length : 0;
+  if (!confirm(cc > 0 ? `Xóa "${selectedNode.name}" sẽ xóa luôn ${cc} con cháu. Tiếp tục?` : `Xóa "${selectedNode.name}"?`)) return;
+  removeNode(treeData, selectedNode.id);
+  collapsed.delete(selectedNode.id);
+  selectedNode = null;
+  document.getElementById('person-info').style.display  = 'none';
+  document.getElementById('no-selection').style.display = 'block';
+  ['btn-add-child','btn-edit','btn-delete'].forEach(id => document.getElementById(id).disabled = true);
+  renderTree();
+  saveToMongo();
+}
+
+// ── Import / Export ────────────────────────────────────────────────────────
+function exportImage() {
+  if (!treeData || orientation === 'list') {
+    alert('Vui lòng chuyển sang chế độ cây (Ngang / Dọc) trước khi xuất ảnh.');
+    return;
+  }
+
+  const btn = document.getElementById('btn-img');
+  btn.disabled = true;
+  btn.querySelector('.qa-icon').textContent = '⏳';
+  btn.lastChild.textContent = 'Đang xuất...';
+
+  // Lưu trạng thái collapsed rồi mở toàn bộ
+  const savedCollapsed = new Set(collapsed);
+  collapsed.clear();
+  renderTree();
+
+  // Tính bounding box từ toạ độ layout D3
+  const isH = orientation === 'h';
+  const nodes = root.descendants();
+  const PAD = 60;
+  const LABEL_W = isH ? 210 : 0;   // nhãn tên kéo dài sang phải khi nằm ngang
+  const LABEL_H = isH ? 10 : 45;   // nhãn tên kéo dài xuống khi dọc
+
+  // Trong layout ngang: node đặt tại translate(d.y, d.x)
+  const sxs = nodes.map(n => isH ? n.y : n.x);
+  const sys = nodes.map(n => isH ? n.x : n.y);
+  const minX = Math.min(...sxs) - NODE_R - PAD;
+  const maxX = Math.max(...sxs) + NODE_R + LABEL_W + PAD;
+  const minY = Math.min(...sys) - NODE_R - PAD;
+  const maxY = Math.max(...sys) + NODE_R + LABEL_H + PAD;
+  const W = maxX - minX;
+  const H = maxY - minY;
+
+  // Clone nội dung g, đặt transform tịnh tiến về gốc toạ độ xuất
+  const gClone = g.node().cloneNode(true);
+  gClone.setAttribute('transform', `translate(${-minX},${-minY})`);
+
+  // Xây SVG string với style inline
+  const svgStr = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+<style>
+  .link { fill:none; stroke:#cbd5e1; stroke-width:1.5px; }
+  .label-name { fill:#1e293b; font-weight:600; font-size:11px; font-family:Arial,sans-serif; }
+  .label-code { fill:#94a3b8; font-size:9px; font-family:Arial,sans-serif; }
+  text { font-family:Arial,sans-serif; }
+</style>
+<rect width="${W}" height="${H}" fill="#f8fafc"/>
+${new XMLSerializer().serializeToString(gClone)}
+</svg>`;
+
+  // Khôi phục trạng thái cũ
+  collapsed.clear();
+  savedCollapsed.forEach(id => collapsed.add(id));
+  renderTree();
+  setTimeout(fitTree, 50);
+
+  // Scale xuống nếu cây quá lớn (giới hạn canvas ~7000px)
+  const MAX = 7000;
+  const scale = Math.min(1, MAX / Math.max(W, H));
+  const cW = Math.round(W * scale);
+  const cH = Math.round(H * scale);
+
+  const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const img  = new Image();
+
+  img.onload = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width  = cW;
+    canvas.height = cH;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(0, 0, cW, cH);
+    ctx.drawImage(img, 0, 0, cW, cH);
+    URL.revokeObjectURL(url);
+
+    canvas.toBlob(b => {
+      const a = document.createElement('a');
+      a.href     = URL.createObjectURL(b);
+      a.download = 'giapha_tree.png';
+      a.click();
+      btn.disabled = false;
+      btn.querySelector('.qa-icon').textContent = '📷';
+      btn.lastChild.textContent = 'PNG';
+    }, 'image/png');
+  };
+
+  img.onerror = () => {
+    alert('Không thể xuất ảnh. Thử lại hoặc dùng trình duyệt khác.');
+    URL.revokeObjectURL(url);
+    btn.disabled = false;
+    btn.querySelector('.qa-icon').textContent = '📷';
+    btn.lastChild.textContent = 'PNG';
+  };
+
+  img.src = url;
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify(treeData, null, 2)], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'giapha_nguyen_huu.json'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+
+document.getElementById('modal-overlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+document.getElementById('login-overlay').addEventListener('click', function(e) { if (e.target === this) closeLoginModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeLoginModal(); } });
+document.getElementById('login-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+window.addEventListener('load', loadAndInit);
+window.addEventListener('resize', () => { if (treeData) initTree(); });
+// Close bottom sheet when tapping the SVG background on mobile
+document.getElementById('tree-svg').addEventListener('click', () => {
+  if (window.innerWidth <= 767) closeMobSheet();
+});
+</script>
+</body>
+</html>
