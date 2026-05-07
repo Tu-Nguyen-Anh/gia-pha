@@ -40,6 +40,11 @@ async function getCol() {
   return cachedCol;
 }
 
+// ── Static ─────────────────────────────────────────────────────────────────
+app.get('/', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // ── Auth endpoints ─────────────────────────────────────────────────────────
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body || {};
